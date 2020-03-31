@@ -12,10 +12,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/axios": "^5.9.6",
+    "axios": "^0.19.2",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.11",
+    "highlight.js": "^9.18.1",
     "koa": "^2.6.2",
+    "marked": "^0.8.2",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.0.0"
   },
