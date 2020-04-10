@@ -1,13 +1,12 @@
 <template>
   <div class="article-box">
     <template v-for="(item, index) in articleList">
-      <nuxt-link :to="`/article/${item._id}`" :key="index">
-        <article-item
-          :coverUrl="item.coverUrl"
-          :title="item.title"
-          :summary="item.summary"
-          :date="item.date"
-        />
+      <nuxt-link :to="`/article/${item._id}`"
+                 :key="index">
+        <article-item :coverUrl="item.coverUrl"
+                      :title="item.title"
+                      :summary="item.summary"
+                      :date="item.releasedAt" />
       </nuxt-link>
     </template>
   </div>
@@ -21,7 +20,7 @@ export default {
   components: {
     ArticleItem
   },
-  asyncData({ error }) {
+  asyncData ({ error }) {
     return getAllArticles()
       .then(res => {
         const { data } = res
@@ -31,7 +30,7 @@ export default {
         error('Error')
       })
   },
-  data() {
+  data () {
     return {
       articleList: []
     }

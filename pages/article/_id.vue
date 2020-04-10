@@ -3,7 +3,7 @@
     <header>
       <h1>{{ article.title }}</h1>
       <div class="subheader">
-        <span>{{ article.date | dateFromat('{y}.{m}.{d}') }}</span>
+        <span>{{ article.releasedAt | dateFromat('{y}.{m}.{d}') }}</span>
         <span>BY {{ article.author.toUpperCase() }} - </span>
         <span>LENGTH {{ article.content.length }}</span>
       </div>
