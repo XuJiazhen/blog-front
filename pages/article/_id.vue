@@ -10,15 +10,19 @@
       <img :src="article.coverUrl" />
     </header>
     <main class="content"
-          v-html="articleContent"></main>
+          v-html="articleContent" />
+    <comments></comments>
   </div>
 </template>
 
 <script>
 import marked from '~/plugins/marked'
 import { getArticleById } from '~/api/article'
-
+import Comments from '~/Components/Comments'
 export default {
+  components: {
+    Comments
+  },
   asyncData ({ params, error }) {
     return getArticleById(params.id)
       .then(res => {
