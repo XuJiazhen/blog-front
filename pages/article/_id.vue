@@ -31,10 +31,6 @@ export default {
   data () {
     return {
       article: {},
-      code:
-        "# Marked in browser\n\nRendered by **marked**.\n" +
-        "```\nfunction(){\n\tconsole.log(123)\n}\n" +
-        ".style {\n\tbackground-color: #fff;\n}\n"
     }
   },
   filters: {
@@ -56,9 +52,6 @@ export default {
     articleContent () {
       return marked(this.article.content)
     }
-  },
-  mounted () {
-    console.log(this.article)
   },
 }
 </script>
