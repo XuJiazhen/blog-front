@@ -11,6 +11,9 @@
     </header>
     <main class="content"
           v-html="articleContent" />
+    <div class="info">
+      版权信息：非商用-署名-自由转载
+    </div>
     <comments></comments>
   </div>
 </template>
@@ -62,7 +65,6 @@ export default {
 
 <style lang="less" scoped>
 .article-content {
-  margin-bottom: 0.625rem;
   header {
     text-align: center;
     h1 {
@@ -76,6 +78,12 @@ export default {
       margin: 1.25rem 0;
     }
   }
+  .info {
+    text-align: right;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 0.625rem 0;
+    user-select: none;
+  }
 }
 </style>
 <style lang="less">
@@ -85,6 +93,9 @@ export default {
     cursor: default;
     p {
       margin: 1.5rem 0;
+      code {
+        color: #d19a66;
+      }
     }
     a {
       color: #409eff;
@@ -93,13 +104,12 @@ export default {
       }
     }
     pre {
-      background-color: #f7f7f7;
-      border: 1px solid #e6e6e6;
-      margin: 1.5rem 0;
       overflow: auto;
       font-size: 14px;
+      margin: 0.625rem 0;
       code {
-        margin: 0;
+        background-color: #f7f7f7;
+        border: 1px solid #e6e6e6;
         padding: 1rem;
         width: 100%;
         height: 100%;
@@ -111,7 +121,9 @@ export default {
       margin: 1.5rem 0;
       li {
         line-height: 1.5;
-        padding: 0.3125rem;
+        code {
+          color: #d19a66;
+        }
       }
     }
   }
