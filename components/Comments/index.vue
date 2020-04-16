@@ -1,16 +1,16 @@
 <template>
   <div class="comments-container">
-    <el-form :model="commentsForm"
+    <el-form :model="commentForm"
              :rules="rules"
-             ref="commentsForm"
+             ref="commentForm"
              class="comments-form">
 
       <el-row>
         <el-col :span="12">
-          <el-form-item prop="nickname">
+          <el-form-item prop="author">
             <el-input maxlength="12"
                       placeholder="Your Nickname"
-                      v-model="commentsForm.nickname" />
+                      v-model="commentForm.author" />
           </el-form-item>
         </el-col>
 
@@ -18,7 +18,7 @@
           <el-form-item prop="email">
             <el-input maxlength="40"
                       placeholder="Your Email Address"
-                      v-model="commentsForm.email" />
+                      v-model="commentForm.email" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -26,7 +26,7 @@
       <el-form-item prop="content">
         <el-input maxlength="100"
                   placeholder="Try to say something here?"
-                  v-model="commentsForm.content"
+                  v-model="commentForm.content"
                   type="textarea"
                   resize="none" />
       </el-form-item>
@@ -40,18 +40,18 @@
     <div class="comments-list-box">
       <ul class="list">
         <li class="item"
-            v-for="item in data"
+            v-for="item in commentList"
             :key="item.id">
           <div class="item-header">
-            <span class="name">{{ item.nickname }}</span>
-            <span class="date">{{ item.date | dateFormat('{y}.{m}.{d}') }}</span>
+            <span class="name">{{ item.author }}</span>
+            <span class="date">{{ item.published_at | dateFormat('{y}.{m}.{d}') }}</span>
           </div>
-          <div class="item-body">{{ item.content }}}</div>
+          <div class="item-body">{{ item.content }}</div>
           <div class="item-footer">
             <a href=""
                class="zan">
               <i class="iconfont icon-zan"></i>
-              <span class="zan-count">(1)</span>
+              <span class="zan-count">({{ item.likes }})</span>
             </a>
             <a href=""
                class="replay">
@@ -67,6 +67,12 @@
 <script>
 export default {
   name: 'Comments',
+  props: {
+    articleId: {
+      type: [String, Number],
+      required: true
+    }
+  },
   data () {
     const validateEmail = (rule, val, callback) => {
       const reg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
@@ -75,27 +81,33 @@ export default {
       }
     }
     return {
-      commentsForm: {
-        nickname: 'XuJiazhen',
-        email: 'jzxu@163.com',
+      commentForm: {
+        author: 'XuJiazhen',
+        email: 'jzxu.159623@163.com',
         content: 'Hello World!'
       },
       rules: {
         email: [{ validator: validateEmail }],
       },
-      data: []
+      commentList: [],
+      likes: []
     }
   },
   methods: {
     submitComment () {
-      const comment = {
-        nickname: this.commentsForm.nickname,
-        email: this.commentsForm.email,
-        content: this.commentsForm.content,
-        date: Date.now(),
-        id: Date.now() * 1000 * 60
+      const commentInfo = {
+        id: Date.now() * 1000 * 60,
+        articleId: this.articleId,
+        author: this.commentForm.author,
+        email: this.commentForm.email,
+        content: this.commentForm.content,
+        likes: this.likes.length || 0,
+        published_at: Date.now()
       }
-      this.data.push(comment)
+
+      this.commentList.push(commentInfo)
+      console.log(this.commentList);
+
     }
   },
   filters: {

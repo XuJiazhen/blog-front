@@ -14,7 +14,7 @@
     <div class="info">
       版权信息：非商用-署名-自由转载
     </div>
-    <comments></comments>
+    <comments :article-id="article._id"></comments>
   </div>
 </template>
 
