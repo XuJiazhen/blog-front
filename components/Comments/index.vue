@@ -24,8 +24,7 @@
       </el-row>
 
       <el-form-item prop="content">
-        <el-input maxlength="100"
-                  placeholder="Try to say something here?"
+        <el-input placeholder="Try to say something here?"
                   v-model="commentForm.content"
                   type="textarea"
                   resize="none" />
@@ -46,17 +45,30 @@
             <span class="name">{{ item.author }}</span>
             <span class="date">{{ item.published_at | dateFormat('{y}.{m}.{d}') }}</span>
           </div>
+
           <div class="item-body">{{ item.content }}</div>
-          <div class="item-footer">
-            <a href=""
-               class="zan">
-              <i class="iconfont icon-zan"></i>
-              <span class="zan-count">({{ item.likes }})</span>
-            </a>
-            <a href=""
-               class="replay">
-              <i class="iconfont icon-replay"></i>
-            </a>
+
+          <div class="item-footer"
+               :class="isReplay? 'replayMode' : ''">
+            <template v-if="isReplay">
+              <el-input :placeholder="`@${item.author}`"
+                        v-model="commentReplayList"></el-input>
+              <el-button plain
+                         size="mini"
+                         @click="handleReplaySomeone">Replay</el-button>
+            </template>
+            <template v-else>
+              <a href=""
+                 class="zan">
+                <i class="iconfont icon-zan"></i>
+                <span class="zan-count">({{ item.likes }})</span>
+              </a>
+              <a href=""
+                 class="replay"
+                 @click.stop.prevent="handleReplay">
+                <i class="iconfont icon-replay"></i>
+              </a>
+            </template>
           </div>
         </li>
       </ul>
@@ -90,7 +102,9 @@ export default {
         email: [{ validator: validateEmail }],
       },
       commentList: [],
-      likes: []
+      likes: [],
+      isReplay: false,
+      commentReplayList: ''
     }
   },
   methods: {
@@ -105,9 +119,13 @@ export default {
         published_at: Date.now()
       }
 
-      this.commentList.push(commentInfo)
-      console.log(this.commentList);
-
+      this.commentList.unshift(commentInfo)
+    },
+    handleReplay () {
+      this.isReplay = !this.isReplay
+    },
+    handleReplaySomeone () {
+      this.isReplay = false
     }
   },
   filters: {
@@ -181,7 +199,7 @@ export default {
           }
         }
         .item-body {
-          padding: 1.875rem 0.9375rem;
+          padding: 1.25rem 0.9375rem;
         }
         .item-footer {
           border-top: 1px solid #dcdfe6;
@@ -189,6 +207,14 @@ export default {
           font-size: 0.875rem;
           display: flex;
           justify-content: space-between;
+          &.replayMode {
+            padding: 0;
+            input,
+            button {
+              border: none;
+              border-radius: 0;
+            }
+          }
           a {
             opacity: 0.8;
             color: #606266;
