@@ -96,7 +96,7 @@ export default {
   methods: {
     submitComment () {
       const commentInfo = {
-        id: Date.now() * 1000 * 60,
+        userId: Date.now() * 1000 * 60,
         articleId: this.articleId,
         author: this.commentForm.author,
         email: this.commentForm.email,
