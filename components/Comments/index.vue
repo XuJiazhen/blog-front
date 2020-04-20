@@ -40,7 +40,9 @@
       <ul class="list">
         <li class="item"
             v-for="item in commentList"
+            :id="`comment-${item.id}`"
             :key="item.id">
+
           <div class="item-header">
             <span class="name">{{ item.author }}</span>
             <span class="date">{{ item.published_at | dateFormat('{y}.{m}.{d}') }}</span>
@@ -48,27 +50,10 @@
 
           <div class="item-body">{{ item.content }}</div>
 
-          <div class="item-footer"
-               :class="isReplay? 'replayMode' : ''">
-            <template v-if="isReplay">
-              <el-input :placeholder="`@${item.author}`"
-                        v-model="replayList"></el-input>
-              <el-button plain
-                         size="mini"
-                         @click="handleReplaySomeone">Replay</el-button>
-            </template>
-            <template v-else>
-              <a href=""
-                 class="zan">
-                <i class="iconfont icon-zan"></i>
-                <span class="zan-count">({{ item.likes }})</span>
-              </a>
-              <a href=""
-                 class="replay"
-                 @click.stop.prevent="handleReplay">
-                <i class="iconfont icon-replay"></i>
-              </a>
-            </template>
+          <div class="item-footer">
+            <reply-mode :replyMode='openreplyMode'
+                        :author="item.author"
+                        :likes="item.likes" />
           </div>
         </li>
       </ul>
@@ -77,8 +62,12 @@
 </template>
 
 <script>
+import ReplyMode from './components/ReplyMode'
 export default {
   name: 'Comments',
+  components: {
+    ReplyMode
+  },
   props: {
     articleId: {
       type: [String, Number],
@@ -103,34 +92,24 @@ export default {
       },
       commentList: [],
       likes: [],
-      isReplay: false,
-      replayList: ''
+      openreplyMode: false,
+      replyList: ''
     }
   },
   methods: {
     submitComment () {
       const commentInfo = {
-        userId: Date.now() * 1000 * 60,
+        id: Date.now() * 1000 * 60,
         articleId: this.articleId,
         author: this.commentForm.author,
         email: this.commentForm.email,
         content: this.commentForm.content,
         likes: this.likes.length || 0,
         published_at: Date.now(),
-        replayList: {
-          userId: Date.now() * 1000 * 60,
-
-        }
       }
 
       this.commentList.unshift(commentInfo)
     },
-    handleReplay () {
-      this.isReplay = !this.isReplay
-    },
-    handleReplaySomeone () {
-      this.isReplay = false
-    }
   },
   filters: {
     dateFormat (val, dateFormat) {
@@ -189,8 +168,8 @@ export default {
         border: 1px solid #dcdfe6;
 
         margin-top: 0.9375rem;
-        &:hover .item-footer a.replay {
-          opacity: 1;
+        &:hover .item-footer a.reply {
+          opacity: 0.8;
         }
         .item-header {
           display: flex;
@@ -209,27 +188,6 @@ export default {
           border-top: 1px solid #dcdfe6;
           padding: 0.3125rem 0.9375rem;
           font-size: 0.875rem;
-          display: flex;
-          justify-content: space-between;
-          &.replayMode {
-            padding: 0;
-            input,
-            button {
-              border: none;
-              border-radius: 0;
-            }
-          }
-          a {
-            opacity: 0.8;
-            color: #606266;
-            transition: all 0.2s;
-            &:hover {
-              color: #409eff;
-            }
-            &.replay {
-              opacity: 0;
-            }
-          }
         }
       }
     }
