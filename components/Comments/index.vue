@@ -52,7 +52,7 @@
                :class="isReplay? 'replayMode' : ''">
             <template v-if="isReplay">
               <el-input :placeholder="`@${item.author}`"
-                        v-model="commentReplayList"></el-input>
+                        v-model="replayList"></el-input>
               <el-button plain
                          size="mini"
                          @click="handleReplaySomeone">Replay</el-button>
@@ -104,7 +104,7 @@ export default {
       commentList: [],
       likes: [],
       isReplay: false,
-      commentReplayList: ''
+      replayList: ''
     }
   },
   methods: {
@@ -116,7 +116,11 @@ export default {
         email: this.commentForm.email,
         content: this.commentForm.content,
         likes: this.likes.length || 0,
-        published_at: Date.now()
+        published_at: Date.now(),
+        replayList: {
+          userId: Date.now() * 1000 * 60,
+
+        }
       }
 
       this.commentList.unshift(commentInfo)
