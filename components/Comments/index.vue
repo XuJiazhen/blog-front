@@ -48,12 +48,27 @@
             <span class="date">{{ item.published_at | dateFormat('{y}.{m}.{d}') }}</span>
           </div>
 
-          <div class="item-body">{{ item.content }}</div>
+          <div class="item-body">
+            <p>{{ item.content }}</p>
+            <template v-for="replyItem in item.replyList">
+              <div class="replyMsgBox"
+                   :key="replyItem.date">
+                <p class="r-msg">{{ replyItem.content }}</p>
+                <div class="r-footer">
+                  <span class="name">{{ replyItem.author }} @ {{ replyItem.to }}</span>
+                  <span class="date">{{ replyItem.date | dateFormat('{y}.{m}.{d}') }}</span>
+                </div>
+              </div>
+            </template>
+
+          </div>
 
           <div class="item-footer">
-            <reply-mode :replyMode='openreplyMode'
+            <reply-mode :replyMode='openReplyMode'
                         :author="item.author"
-                        :likes="item.likes" />
+                        :likes="item.likes"
+                        :id="item.id"
+                        @replyForm="handleReplyForm" />
           </div>
         </li>
       </ul>
@@ -85,15 +100,14 @@ export default {
       commentForm: {
         author: 'XuJiazhen',
         email: 'jzxu.159623@163.com',
-        content: 'Hello World!'
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nihil tempora porro eveniet! Tempora iste dolore neque repellendus, quis quod sint excepturi cum repellat placeat atque vero minus voluptates praesentium.'
       },
       rules: {
         email: [{ validator: validateEmail }],
       },
       commentList: [],
       likes: [],
-      openreplyMode: false,
-      replyList: ''
+      openReplyMode: false,
     }
   },
   methods: {
@@ -106,10 +120,18 @@ export default {
         content: this.commentForm.content,
         likes: this.likes.length || 0,
         published_at: Date.now(),
+        replyList: []
       }
 
       this.commentList.unshift(commentInfo)
     },
+    handleReplyForm (replyForm) {
+      this.commentList.map(item => {
+        if (replyForm.toId === item.id) {
+          item.replyList.push(replyForm)
+        }
+      })
+    }
   },
   filters: {
     dateFormat (val, dateFormat) {
@@ -176,13 +198,30 @@ export default {
           justify-content: space-between;
           background-color: #f7f7f7;
           border-bottom: 1px solid #dcdfe6;
-          padding: 0.625rem 0.9375rem;
+          padding: 0.3125rem 0.9375rem;
           span {
             user-select: none;
           }
         }
         .item-body {
           padding: 1.25rem 0.9375rem;
+          .replyMsgBox {
+            margin: 1.25rem 0 0 1.25rem;
+            border: 1px solid #dcdfe6;
+            .r-msg {
+              padding: 0.9375rem 0.625rem;
+            }
+            .r-footer {
+              display: flex;
+              justify-content: space-between;
+              opacity: 0.8;
+              color: #606266;
+              font-size: 12px;
+              user-select: none;
+              padding: 0.1875rem 0.625rem;
+              border-top: 1px solid #dcdfe6;
+            }
+          }
         }
         .item-footer {
           border-top: 1px solid #dcdfe6;

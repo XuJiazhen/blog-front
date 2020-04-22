@@ -2,7 +2,8 @@
   <div class="reply-mode"
        :class="isOpen ? 'open' : ''">
     <template v-if="isOpen">
-      <el-input :placeholder="`@${author}`"></el-input>
+      <el-input :placeholder="`@${author}`"
+                v-model="content"></el-input>
       <el-button plain
                  size="mini"
                  @click="handleReplyTo">Reply</el-button>
@@ -34,6 +35,9 @@ export default {
       type: String,
       default: ''
     },
+    id: {
+      type: [String, Number]
+    },
     likes: {
       type: Number,
       default: 0
@@ -41,7 +45,11 @@ export default {
   },
   data () {
     return {
-      isOpen: this.openreplyMode
+      isOpen: this.openreplyMode,
+      content: '',
+      to: '',
+      date: null,
+
     }
   },
   methods: {
@@ -50,6 +58,14 @@ export default {
     },
     handleReplyTo () {
       this.isOpen = false
+      const replyForm = {
+        content: this.content,
+        author: this.author,
+        to: this.author,
+        toId: this.id,
+        date: Date.now()
+      }
+      this.$emit('replyForm', replyForm)
     }
   },
 }
