@@ -91,11 +91,16 @@
             <p>{{ item.content }}</p>
             <template v-for="replyItem in item.replyList">
               <div class="replyMsgBox"
-                   :key="replyItem.date">
+                   :key="replyItem.selfId">
                 <p class="r-msg">{{ replyItem.content }}</p>
                 <div class="r-footer">
-                  <span class="name">{{ commentForm.author }} @ {{ replyItem.author }}</span>
-                  <span class="date">{{ replyItem.date | dateFormat('{y}.{m}.{d}') }}</span>
+                  <reply-mode :replyMode='openReplyMode'
+                              :id='item.id'
+                              :noLikes="true"
+                              :infoPanel="true"
+                              :author="commentForm.author"
+                              :toAuthor="replyItem.author"
+                              @replyForm="handleReplyForm" />
                 </div>
               </div>
             </template>
@@ -152,7 +157,7 @@ export default {
       },
       userInfoCacheMode: false,
       cacheUserInfo: false,
-      isEdit: false
+      isEdit: false,
     }
   },
   mounted () {
@@ -175,6 +180,7 @@ export default {
         this.commentList.unshift(commentInfo)
       }
 
+      this.commentForm.content = ''
     },
     handleReplyForm (replyForm) {
       this.commentList.map(item => {
@@ -195,6 +201,14 @@ export default {
       if (!this.regexp.email.test(this.commentForm.email)) {
         this.$message({
           message: 'Email is incorrect.',
+          type: 'warning'
+        })
+        return false
+      }
+
+      if (!this.commentForm.content) {
+        this.$message({
+          message: 'Say something.',
           type: 'warning'
         })
         return false
@@ -313,9 +327,6 @@ export default {
         border: 1px solid #dcdfe6;
 
         margin-top: 0.9375rem;
-        &:hover .item-footer a.reply {
-          opacity: 0.8;
-        }
         .item-header {
           display: flex;
           justify-content: space-between;
@@ -335,8 +346,6 @@ export default {
               padding: 0.9375rem 0.625rem;
             }
             .r-footer {
-              display: flex;
-              justify-content: space-between;
               opacity: 0.8;
               color: #606266;
               font-size: 12px;
@@ -350,6 +359,9 @@ export default {
           border-top: 1px solid #dcdfe6;
           padding: 0.3125rem 0.9375rem;
           font-size: 0.875rem;
+          &:hover a.reply {
+            opacity: 0.8;
+          }
         }
       }
     }
