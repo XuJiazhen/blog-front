@@ -163,6 +163,9 @@ export default {
   mounted () {
     this.initUser()
   },
+  destroyed () {
+
+  },
   methods: {
     submitComment () {
       const commentInfo = {
@@ -228,8 +231,12 @@ export default {
       this.isEdit = true
     },
     saveUserInfo () {
+      const userInfo = {
+        author: this.commentForm.author,
+        email: this.commentForm.email
+      }
       localStorage.clear('UserInfo')
-      localStorage.setItem('UserInfo', JSON.stringify(this.commentForm))
+      localStorage.setItem('UserInfo', JSON.stringify(userInfo))
       this.isEdit = false
     },
     logout () {
@@ -350,7 +357,7 @@ export default {
               color: #606266;
               font-size: 12px;
               user-select: none;
-              padding: 0.1875rem 0.625rem;
+              padding: 0.3125rem 0.625rem;
               border-top: 1px solid #dcdfe6;
             }
           }

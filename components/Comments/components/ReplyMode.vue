@@ -3,27 +3,33 @@
        :class="isOpen ? 'open' : ''">
     <template v-if="isOpen">
       <el-input :placeholder="`@${author}`"
-                v-model="content"></el-input>
+                v-model="content"
+                @keyup.native.enter="handleReplyTo"></el-input>
       <el-button plain
                  size="mini"
                  @click="handleReplyTo">Reply</el-button>
     </template>
     <template v-else>
       <template v-if="infoPanel">
-        <div class="subFooter">
+        <div class="subFooter"
+             @mouseenter="handleEnter"
+             @mouseleave="handleLeave">
           <span class="name">{{ author }} @ {{ toAuthor }}</span>
 
-          <template v-if="isOpen">
-            <span class="date">{{ date | dateFormat('{y}.{m}.{d}') }}</span>
-          </template>
-
-          <template v-else>
-            <a href=""
+          <transition mode="out-in"
+                      name="fade">
+            <span v-if="showDate"
+                  class="date"
+                  key="date">{{ date | dateFormat('{y}.{m}.{d}') }}</span>
+            <a v-else
+               href=""
                class="reply"
-               @click.stop.prevent="handleReply">
+               @click.stop.prevent="handleReply"
+               key="reply">
               <i class="iconfont icon-reply"></i>
             </a>
-          </template>
+          </transition>
+
         </div>
       </template>
       <template v-else>
@@ -82,6 +88,7 @@ export default {
     return {
       isOpen: this.replyMode,
       content: '',
+      showDate: true
     }
   },
   methods: {
@@ -89,6 +96,13 @@ export default {
       this.isOpen = !this.isOpen
     },
     handleReplyTo () {
+      if (!this.content) {
+        this.$message({
+          message: 'Say something.',
+          type: 'warning'
+        })
+        return false
+      }
       this.isOpen = false
       const replyForm = {
         content: this.content,
@@ -99,6 +113,12 @@ export default {
       }
       this.$emit('replyForm', replyForm)
       this.content = ''
+    },
+    handleEnter () {
+      this.showDate = false
+    },
+    handleLeave () {
+      this.showDate = true
     }
   },
   filters: {
@@ -120,6 +140,14 @@ export default {
 </script>
 
 <style lang='less'>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 .reply-mode {
   display: flex;
   justify-content: space-between;
@@ -152,7 +180,7 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    &:hover a.reply {
+    a.reply {
       opacity: 0.8;
     }
   }
