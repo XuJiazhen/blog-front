@@ -94,7 +94,7 @@
                    :key="replyItem.date">
                 <p class="r-msg">{{ replyItem.content }}</p>
                 <div class="r-footer">
-                  <span class="name">{{ replyItem.author }} @ {{ replyItem.to }}</span>
+                  <span class="name">{{ commentForm.author }} @ {{ replyItem.author }}</span>
                   <span class="date">{{ replyItem.date | dateFormat('{y}.{m}.{d}') }}</span>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default {
     },
     handleReplyForm (replyForm) {
       this.commentList.map(item => {
-        if (replyForm.toId === item.id) {
+        if (replyForm.id === item.id) {
           item.replyList.push(replyForm)
         }
       })

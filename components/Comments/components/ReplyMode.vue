@@ -47,9 +47,8 @@ export default {
     return {
       isOpen: this.openreplyMode,
       content: '',
-      to: '',
+      author: '',
       date: null,
-
     }
   },
   methods: {
@@ -61,11 +60,11 @@ export default {
       const replyForm = {
         content: this.content,
         author: this.author,
-        to: this.author,
-        toId: this.id,
+        id: this.id,
         date: Date.now()
       }
       this.$emit('replyForm', replyForm)
+      this.content = ''
     }
   },
 }
