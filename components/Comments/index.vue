@@ -1,30 +1,69 @@
 <template>
   <div class="comments-container">
     <el-form :model="commentForm"
-             :rules="rules"
              ref="commentForm"
              class="comments-form">
 
       <el-row>
-        <el-col :span="12">
-          <el-form-item prop="author">
-            <el-input maxlength="12"
-                      placeholder="Your Nickname"
-                      v-model="commentForm.author" />
-          </el-form-item>
-        </el-col>
+        <template v-if="userInfoCacheMode">
+          <div class="userMode">
+            <template v-if="isEdit">
+              <el-col :span="11">
+                <el-input v-model="commentForm.author" />
+              </el-col>
+              <el-col :span="11">
+                <el-input v-model="commentForm.email" />
+              </el-col>
+              <el-col class="btns"
+                      :span="2">
+                <el-button plain
+                           size="mini"
+                           @click="saveUserInfo">Save</el-button>
+              </el-col>
 
-        <el-col :span="12">
-          <el-form-item prop="email">
-            <el-input maxlength="40"
-                      placeholder="Your Email Address"
-                      v-model="commentForm.email" />
-          </el-form-item>
-        </el-col>
+            </template>
+            <template v-else>
+              <el-col class="user"
+                      :span="20">
+                Hello, <span class="author">{{ commentForm.author }}</span>
+              </el-col>
+              <el-col class="btns"
+                      :span="4">
+                <el-button plain
+                           size="mini"
+                           @click="editUserInfo">
+                  Edit
+                </el-button>
+                <el-button plain
+                           size="mini"
+                           @click="logout">
+                  Logout
+                </el-button>
+              </el-col>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <el-col :span="12">
+            <el-form-item prop="author">
+              <el-input maxlength="12"
+                        placeholder="Name"
+                        v-model="commentForm.author" />
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="12">
+            <el-form-item prop="email">
+              <el-input maxlength="40"
+                        placeholder="Email"
+                        v-model="commentForm.email" />
+            </el-form-item>
+          </el-col>
+        </template>
       </el-row>
 
       <el-form-item prop="content">
-        <el-input placeholder="Try to say something here?"
+        <el-input placeholder="Your comments goes here."
                   v-model="commentForm.content"
                   type="textarea"
                   resize="none" />
@@ -90,25 +129,34 @@ export default {
     }
   },
   data () {
-    const validateEmail = (rule, val, callback) => {
-      const reg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
-      if (val && !reg.test(val)) {
-        return callback(new Error('请输入正确的邮箱地址'))
-      }
-    }
+    // const validateEmail = (rule, val, callback) => {
+    //   const reg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
+    //   if (val && !reg.test(val)) {
+    //     return callback(new Error('请输入正确的邮箱地址'))
+    //   }
+    // }
     return {
       commentForm: {
         author: 'XuJiazhen',
         email: 'jzxu.159623@163.com',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nihil tempora porro eveniet! Tempora iste dolore neque repellendus, quis quod sint excepturi cum repellat placeat atque vero minus voluptates praesentium.'
       },
-      rules: {
-        email: [{ validator: validateEmail }],
-      },
+      // rules: {
+      //   email: [{ validator: validateEmail }],
+      // },
       commentList: [],
       likes: [],
       openReplyMode: false,
+      regexp: {
+        email: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
+      },
+      userInfoCacheMode: false,
+      cacheUserInfo: false,
+      isEdit: false
     }
+  },
+  mounted () {
+    this.initUser()
   },
   methods: {
     submitComment () {
@@ -123,7 +171,10 @@ export default {
         replyList: []
       }
 
-      this.commentList.unshift(commentInfo)
+      if (this.checkUser()) {
+        this.commentList.unshift(commentInfo)
+      }
+
     },
     handleReplyForm (replyForm) {
       this.commentList.map(item => {
@@ -131,6 +182,48 @@ export default {
           item.replyList.push(replyForm)
         }
       })
+    },
+    checkUser () {
+      if (!this.commentForm.author) {
+        this.$message({
+          message: 'Name should not be empty.',
+          type: 'warning'
+        })
+        return false
+      }
+
+      if (!this.regexp.email.test(this.commentForm.email)) {
+        this.$message({
+          message: 'Email is incorrect.',
+          type: 'warning'
+        })
+        return false
+      }
+
+      localStorage.setItem('UserInfo', JSON.stringify(this.commentForm))
+      this.userInfoCacheMode = true
+      return true
+    },
+    initUser () {
+      if (localStorage.getItem('UserInfo')) {
+        this.userInfoCacheMode = true
+        this.commentForm = JSON.parse(localStorage.getItem('UserInfo'))
+      }
+    },
+    editUserInfo () {
+      this.isEdit = true
+    },
+    saveUserInfo () {
+      localStorage.clear('UserInfo')
+      localStorage.setItem('UserInfo', JSON.stringify(this.commentForm))
+      this.isEdit = false
+    },
+    logout () {
+      this.userInfoCacheMode = false
+      localStorage.clear('UserInfo')
+      this.commentForm.author = ''
+      this.commentForm.email = ''
+      this.commentForm.content = ''
     }
   },
   filters: {
@@ -170,6 +263,7 @@ export default {
           border-radius: 0;
           min-height: 6rem !important;
           max-height: 10rem !important;
+          padding: 0.625rem 0.9375rem;
         }
       }
       &.btns {
@@ -178,6 +272,35 @@ export default {
           border-radius: 0;
           transition: all 0.2s;
         }
+      }
+    }
+    .userMode {
+      display: flex;
+      align-items: center;
+      background-color: #f7f7f7;
+      padding: 0.3125rem 1rem;
+      .user {
+        text-align: left;
+        user-select: none;
+        .author {
+          color: #3a8ee6;
+          font-weight: bold;
+        }
+      }
+      .btns {
+        text-align: right;
+        button {
+          margin: 0;
+          border-radius: 0;
+          transition: all 0.2s;
+        }
+      }
+      input {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+        background-color: #f7f7f7;
       }
     }
   }
