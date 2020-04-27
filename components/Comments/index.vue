@@ -84,7 +84,7 @@
 
           <div class="item-header">
             <span class="name">{{ item.author }}</span>
-            <span class="date">{{ item.published_at | dateFormat('{y}.{m}.{d}') }}</span>
+            <span class="date">{{ item.publishedAt | dateFormat('{y}.{m}.{d}') }}</span>
           </div>
 
           <div class="item-body">
@@ -176,17 +176,15 @@ export default {
         email: this.commentForm.email,
         content: this.commentForm.content,
         likes: this.likes.length || 0,
+        publishedAt: Date.now(),
         replyList: []
       }
 
       if (this.checkForm()) {
         this.commentList.unshift(commentInfo)
+        this.commentForm.content = ''
+        createComments(commentInfo)
       }
-      this.commentForm.content = ''
-      createComments(commentInfo).then(res => {
-        console.log(res);
-      })
-
     },
     handleReplyForm (replyForm) {
       this.commentList.map(item => {
@@ -248,12 +246,12 @@ export default {
       localStorage.clear('UserInfo')
       this.commentForm.author = ''
       this.commentForm.email = ''
-      this.commentForm.content = ''
     }
   },
   filters: {
     dateFormat (val, dateFormat) {
       const date = new Date(val)
+
       const dateInfoObj = {
         y: date.getFullYear(),
         m: date.getMonth(),
