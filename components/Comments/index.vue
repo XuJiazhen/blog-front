@@ -79,8 +79,8 @@
       <ul class="list">
         <li class="item"
             v-for="item in commentList"
-            :id="`comment-${item.id}`"
-            :key="item.id">
+            :id="`comment-${item.userId}`"
+            :key="item.userId">
 
           <div class="item-header">
             <span class="name">{{ item.author }}</span>
@@ -95,7 +95,7 @@
                 <p class="r-msg">{{ replyItem.content }}</p>
                 <div class="r-footer">
                   <reply-mode :replyMode='openReplyMode'
-                              :id='item.id'
+                              :userId='item.userId'
                               :noLikes="true"
                               :infoPanel="true"
                               :author="commentForm.author"
@@ -111,7 +111,7 @@
             <reply-mode :replyMode='openReplyMode'
                         :author="item.author"
                         :likes="item.likes"
-                        :id="item.id"
+                        :userId="item.userId"
                         @replyForm="handleReplyForm" />
           </div>
         </li>
@@ -122,6 +122,7 @@
 
 <script>
 import ReplyMode from './components/ReplyMode'
+import { createComments, getAllComments } from '~/api/comments'
 export default {
   name: 'Comments',
   components: {
@@ -142,9 +143,9 @@ export default {
     // }
     return {
       commentForm: {
-        author: 'XuJiazhen',
-        email: 'jzxu.159623@163.com',
-        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nihil tempora porro eveniet! Tempora iste dolore neque repellendus, quis quod sint excepturi cum repellat placeat atque vero minus voluptates praesentium.'
+        author: '',
+        email: '',
+        content: ''
       },
       // rules: {
       //   email: [{ validator: validateEmail }],
@@ -162,37 +163,39 @@ export default {
   },
   mounted () {
     this.initUser()
-  },
-  destroyed () {
-
+    getAllComments().then(res => {
+      this.commentList = res.data
+    })
   },
   methods: {
     submitComment () {
       const commentInfo = {
-        id: Date.now() * 1000 * 60,
+        userId: Date.now() * 1000 * 60,
         articleId: this.articleId,
         author: this.commentForm.author,
         email: this.commentForm.email,
         content: this.commentForm.content,
         likes: this.likes.length || 0,
-        published_at: Date.now(),
         replyList: []
       }
 
-      if (this.checkUser()) {
+      if (this.checkForm()) {
         this.commentList.unshift(commentInfo)
       }
-
       this.commentForm.content = ''
+      createComments(commentInfo).then(res => {
+        console.log(res);
+      })
+
     },
     handleReplyForm (replyForm) {
       this.commentList.map(item => {
-        if (replyForm.id === item.id) {
+        if (replyForm.id === item.userId) {
           item.replyList.push(replyForm)
         }
       })
     },
-    checkUser () {
+    checkForm () {
       if (!this.commentForm.author) {
         this.$message({
           message: 'Name should not be empty.',
@@ -217,7 +220,8 @@ export default {
         return false
       }
 
-      localStorage.setItem('UserInfo', JSON.stringify(this.commentForm))
+      // localStorage.setItem('UserInfo', JSON.stringify(this.commentForm))
+      this.saveUserInfo()
       this.userInfoCacheMode = true
       return true
     },

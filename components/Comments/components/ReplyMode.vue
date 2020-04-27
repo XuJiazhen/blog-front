@@ -34,7 +34,9 @@
       </template>
       <template v-else>
         <a href=""
-           class="zan">
+           class="zan"
+           @click.stop.prevent="handleLikes"
+           :class="isClicked ? 'changed-color' : ''">
           <i class="iconfont icon-zan"></i>
           <span class="zan-count">({{ likes }})</span>
         </a>
@@ -64,7 +66,7 @@ export default {
       type: String,
       default: ''
     },
-    id: {
+    userId: {
       type: [String, Number]
     },
     likes: {
@@ -88,7 +90,8 @@ export default {
     return {
       isOpen: this.replyMode,
       content: '',
-      showDate: true
+      showDate: true,
+      isClicked: false
     }
   },
   methods: {
@@ -97,17 +100,13 @@ export default {
     },
     handleReplyTo () {
       if (!this.content) {
-        this.$message({
-          message: 'Say something.',
-          type: 'warning'
-        })
+        this.isOpen = false
         return false
       }
-      this.isOpen = false
       const replyForm = {
         content: this.content,
         author: this.author,
-        id: this.id,
+        userId: this.userId,
         date: this.date,
         selfId: (Date.now() * 1000 * 60) / 6
       }
@@ -119,6 +118,9 @@ export default {
     },
     handleLeave () {
       this.showDate = true
+    },
+    handleLikes () {
+      this.isClicked = !this.isClicked
     }
   },
   filters: {
@@ -169,6 +171,9 @@ export default {
     opacity: 0.8;
     color: #606266;
     transition: all 0.2s;
+    &.changed-color {
+      color: #409eff;
+    }
     &:hover {
       color: #409eff;
     }
