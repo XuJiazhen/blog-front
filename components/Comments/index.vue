@@ -72,13 +72,14 @@
       <el-form-item class="btns">
         <el-button plain
                    size="mini"
-                   @click="submitComment">Publish</el-button>
+                   @click="submitComment"
+                   :loading="loading">Publish</el-button>
       </el-form-item>
     </el-form>
     <div class="comments-list-box">
       <ul class="list">
         <li class="item"
-            v-for="item in commentList"
+            v-for="item in comment"
             :id="`comment-${item.userId}`"
             :key="item.userId">
 
@@ -122,7 +123,6 @@
 
 <script>
 import ReplyMode from './components/ReplyMode'
-import { createComments, getAllComments } from '~/api/comments'
 export default {
   name: 'Comments',
   components: {
@@ -135,22 +135,12 @@ export default {
     }
   },
   data () {
-    // const validateEmail = (rule, val, callback) => {
-    //   const reg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
-    //   if (val && !reg.test(val)) {
-    //     return callback(new Error('请输入正确的邮箱地址'))
-    //   }
-    // }
     return {
       commentForm: {
         author: '',
         email: '',
         content: ''
       },
-      // rules: {
-      //   email: [{ validator: validateEmail }],
-      // },
-      commentList: [],
       likes: [],
       openReplyMode: false,
       regexp: {
@@ -159,17 +149,23 @@ export default {
       userInfoCacheMode: false,
       cacheUserInfo: false,
       isEdit: false,
+      loading: false
     }
   },
   mounted () {
     this.initUser()
-    getAllComments().then(res => {
-      this.commentList = res.data
-    })
+
+    this.$store.dispatch('comment/getCommentsByArticleID', this.articleId)
+  },
+  computed: {
+    comment () {
+      return this.$store.state.comment.data
+    }
   },
   methods: {
-    submitComment () {
-      const commentInfo = {
+    async submitComment () {
+      this.loading = true
+      const comment = {
         userId: Date.now() * 1000 * 60,
         articleId: this.articleId,
         author: this.commentForm.author,
@@ -181,14 +177,14 @@ export default {
       }
 
       if (this.checkForm()) {
-        this.commentList.unshift(commentInfo)
+        await this.$store.dispatch('comment/createComment', comment)
         this.commentForm.content = ''
-        createComments(commentInfo)
+        this.loading = false
       }
     },
     handleReplyForm (replyForm) {
-      this.commentList.map(item => {
-        if (replyForm.id === item.userId) {
+      this.comment.map(item => {
+        if (replyForm.userId === item.userId) {
           item.replyList.push(replyForm)
         }
       })
@@ -218,7 +214,6 @@ export default {
         return false
       }
 
-      // localStorage.setItem('UserInfo', JSON.stringify(this.commentForm))
       this.saveUserInfo()
       this.userInfoCacheMode = true
       return true

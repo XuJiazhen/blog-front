@@ -108,7 +108,7 @@ export default {
         author: this.author,
         userId: this.userId,
         date: this.date,
-        selfId: (Date.now() * 1000 * 60) / 6
+        selfId: (Date.now() * 1000 * 60) / 6,
       }
       this.$emit('replyForm', replyForm)
       this.content = ''
