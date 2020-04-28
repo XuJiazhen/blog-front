@@ -17,7 +17,7 @@ export function getCommentsByArticleID(id) {
 
 export function updateComment(data) {
   return request({
-    url: `/comments/update`,
+    url: '/comments/update',
     method: 'put',
     data
   })

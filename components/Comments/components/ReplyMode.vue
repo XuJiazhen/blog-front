@@ -2,7 +2,7 @@
   <div class="reply-mode"
        :class="isOpen ? 'open' : ''">
     <template v-if="isOpen">
-      <el-input :placeholder="`@${author}`"
+      <el-input :placeholder="`@${toAuthor}`"
                 v-model="content"
                 @keyup.native.enter="handleReplyTo"></el-input>
       <el-button plain
@@ -14,7 +14,7 @@
         <div class="subFooter"
              @mouseenter="handleEnter"
              @mouseleave="handleLeave">
-          <span class="name">{{ author }} @ {{ toAuthor }}</span>
+          <span class="name">{{ itemAuthor }} @ {{ itemToAuthor }}</span>
 
           <transition mode="out-in"
                       name="fade">
@@ -54,6 +54,7 @@
 export default {
   name: 'replyMode',
   props: {
+    id: String,
     replyMode: {
       type: Boolean,
       default: false
@@ -65,9 +66,6 @@ export default {
     toAuthor: {
       type: String,
       default: ''
-    },
-    userId: {
-      type: [String, Number]
     },
     likes: {
       type: [Number, Boolean],
@@ -84,6 +82,14 @@ export default {
     date: {
       type: [Date, Number],
       default: Date.now()
+    },
+    itemAuthor: {
+      type: String,
+      default: ''
+    },
+    itemToAuthor: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -104,14 +110,16 @@ export default {
         return false
       }
       const replyForm = {
+        id: this.id,
         content: this.content,
         author: this.author,
-        userId: this.userId,
+        toAuthor: this.toAuthor,
         date: this.date,
         selfId: (Date.now() * 1000 * 60) / 6,
       }
       this.$emit('replyForm', replyForm)
       this.content = ''
+      this.isOpen = false
     },
     handleEnter () {
       this.showDate = false

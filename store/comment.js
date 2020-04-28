@@ -1,7 +1,12 @@
-import { createComment, getCommentsByArticleID } from '../api/comment'
+import {
+  createComment,
+  getCommentsByArticleID,
+  updateComment
+} from '../api/comment'
 
 export const state = () => {
   return {
+    login: false,
     data: []
   }
 }
@@ -13,6 +18,14 @@ export const mutations = {
 
   GET_CMLIST(state, res) {
     state.data = res
+  },
+
+  UPDATE_CMITEM(state, res) {
+    state.data.map(item => {
+      if (Object.is(item._id, res.id)) {
+        item.replyList.push(res)
+      }
+    })
   }
 }
 
@@ -31,6 +44,16 @@ export const actions = {
     if (res && res.data) {
       commit('GET_CMLIST', res.data)
     }
+    return res
+  },
+
+  async updateComment({ commit }, replyForm) {
+    const res = await updateComment(replyForm)
+
+    if (res && res.data) {
+      commit('UPDATE_CMITEM', replyForm)
+    }
+
     return res
   }
 }

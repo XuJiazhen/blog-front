@@ -95,12 +95,15 @@
                    :key="replyItem.selfId">
                 <p class="r-msg">{{ replyItem.content }}</p>
                 <div class="r-footer">
+                  <!-- <span class="name">{{ replyItem.author }} @ {{ replyItem.toAuthor }}</span> -->
                   <reply-mode :replyMode='openReplyMode'
-                              :userId='item.userId'
+                              :id='item._id'
                               :noLikes="true"
                               :infoPanel="true"
                               :author="commentForm.author"
                               :toAuthor="replyItem.author"
+                              :itemAuthor="replyItem.author"
+                              :itemToAuthor="replyItem.toAuthor"
                               @replyForm="handleReplyForm" />
                 </div>
               </div>
@@ -110,9 +113,10 @@
 
           <div class="item-footer">
             <reply-mode :replyMode='openReplyMode'
-                        :author="item.author"
+                        :author="commentForm.author"
+                        :toAuthor="item.author"
                         :likes="item.likes"
-                        :userId="item.userId"
+                        :id="item._id"
                         @replyForm="handleReplyForm" />
           </div>
         </li>
@@ -123,6 +127,7 @@
 
 <script>
 import ReplyMode from './components/ReplyMode'
+import { updateComment } from '~/api/comment'
 export default {
   name: 'Comments',
   components: {
@@ -138,7 +143,7 @@ export default {
     return {
       commentForm: {
         author: '',
-        email: '',
+        email: 'xu.159623@gmail.com',
         content: ''
       },
       likes: [],
@@ -182,12 +187,8 @@ export default {
         this.loading = false
       }
     },
-    handleReplyForm (replyForm) {
-      this.comment.map(item => {
-        if (replyForm.userId === item.userId) {
-          item.replyList.push(replyForm)
-        }
-      })
+    async handleReplyForm (replyForm) {
+      await this.$store.dispatch('comment/updateComment', replyForm)
     },
     checkForm () {
       if (!this.commentForm.author) {
