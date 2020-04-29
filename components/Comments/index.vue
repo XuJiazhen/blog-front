@@ -90,7 +90,7 @@
 
           <div class="item-body">
             <p>{{ item.content }}</p>
-            <template v-for="replyItem in item.replyList">
+            <template v-for="replyItem in item.replyList.data">
               <div class="replyList"
                    :key="replyItem.selfId">
                 <div class="reply-header">
@@ -156,7 +156,7 @@ export default {
       userInfoCacheMode: false,
       cacheUserInfo: false,
       isEdit: false,
-      loading: false
+      loading: false,
     }
   },
   mounted () {
@@ -167,7 +167,7 @@ export default {
   computed: {
     comment () {
       return this.$store.state.comment.data
-    }
+    },
   },
   methods: {
     async submitComment () {
@@ -177,7 +177,10 @@ export default {
         author: this.commentForm.author,
         email: this.commentForm.email,
         content: this.commentForm.content,
-        replyList: []
+        replyList: {
+          id: '',
+          data: []
+        }
       }
 
       if (this.checkForm()) {

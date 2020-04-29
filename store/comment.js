@@ -5,6 +5,8 @@ import {
   submitLike
 } from '../api/comment'
 
+import Vue from 'vue'
+
 export const state = () => {
   return {
     data: []
@@ -21,20 +23,12 @@ export const mutations = {
   },
 
   UPDATE_CMITEM(state, res) {
-    state.data.map(item => {
-      if (Object.is(item._id, res.id)) {
-        item.replyList.push(res)
-      }
-    })
+    const replyList = state.data.find(item => Object.is(item._id, res.id))
+      .replyList.data
+    Vue.set(replyList, replyList.length, res.data)
   },
 
-  SUBMIT_LIKE(state, res) {
-    state.data.map(item => {
-      if (Object.is(item._id, res.id)) {
-        state.likes = res.likes
-      }
-    })
-  }
+  SUBMIT_LIKE(state, res) {}
 }
 
 export const actions = {
@@ -57,9 +51,8 @@ export const actions = {
 
   async updateComment({ commit }, replyForm) {
     const res = await updateComment(replyForm)
-
     if (res && res.data) {
-      commit('UPDATE_CMITEM', replyForm)
+      commit('UPDATE_CMITEM', res.data)
     }
 
     return res
@@ -71,8 +64,6 @@ export const actions = {
     if (res && res.data) {
       commit('SUBMIT_LIKE', res.data)
     }
-
-    console.log(res)
 
     return res.data
   }

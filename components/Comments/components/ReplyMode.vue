@@ -74,9 +74,12 @@ export default {
       }
       const replyForm = {
         id: this.id,
-        author: this.author,
-        toAuthor: this.toAuthor,
-        content: this.content,
+        data: {
+          author: this.author,
+          toAuthor: this.toAuthor,
+          content: this.content,
+          queryId: Date.now() * 1000 / 60
+        }
       }
       this.$emit('replyForm', replyForm)
       this.content = ''
