@@ -22,3 +22,11 @@ export function updateComment(data) {
     data
   })
 }
+
+export function submitLike(data) {
+  return request({
+    url: `/comments/like`,
+    method: 'put',
+    data
+  })
+}

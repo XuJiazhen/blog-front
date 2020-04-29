@@ -80,8 +80,8 @@
       <ul class="list">
         <li class="item"
             v-for="item in comment"
-            :id="`comment-${item.userId}`"
-            :key="item.userId">
+            :id="`comment-${item._id}`"
+            :key="item._id">
 
           <div class="item-header">
             <span class="name">{{ item.author }}</span>
@@ -91,32 +91,34 @@
           <div class="item-body">
             <p>{{ item.content }}</p>
             <template v-for="replyItem in item.replyList">
-              <div class="replyMsgBox"
+              <div class="replyList"
                    :key="replyItem.selfId">
-                <p class="r-msg">{{ replyItem.content }}</p>
-                <div class="r-footer">
-                  <!-- <span class="name">{{ replyItem.author }} @ {{ replyItem.toAuthor }}</span> -->
+                <div class="reply-header">
+                  <span class="name">{{ replyItem.author }} @ {{ replyItem.toAuthor }}</span>
+                  <span class="date">{{ replyItem.commentAt | dateFormat('{y}.{m}.{d}') }}</span>
+                </div>
+                <p class="reply-content">{{ replyItem.content }}</p>
+                <div class="reply-footer">
                   <reply-mode :replyMode='openReplyMode'
-                              :id='item._id'
-                              :noLikes="true"
-                              :infoPanel="true"
+                              :isSub="true"
+                              :sId="item._id"
+                              :id="replyItem._id"
                               :author="commentForm.author"
                               :toAuthor="replyItem.author"
-                              :itemAuthor="replyItem.author"
-                              :itemToAuthor="replyItem.toAuthor"
+                              :likes="replyItem.likes"
                               @replyForm="handleReplyForm" />
                 </div>
               </div>
             </template>
 
           </div>
-
           <div class="item-footer">
             <reply-mode :replyMode='openReplyMode'
+                        :isSub="false"
+                        :id="item._id"
                         :author="commentForm.author"
                         :toAuthor="item.author"
                         :likes="item.likes"
-                        :id="item._id"
                         @replyForm="handleReplyForm" />
           </div>
         </li>
@@ -171,13 +173,10 @@ export default {
     async submitComment () {
       this.loading = true
       const comment = {
-        userId: Date.now() * 1000 * 60,
         articleId: this.articleId,
         author: this.commentForm.author,
         email: this.commentForm.email,
         content: this.commentForm.content,
-        likes: this.likes.length || 0,
-        publishedAt: Date.now(),
         replyList: []
       }
 
@@ -344,19 +343,31 @@ export default {
         }
         .item-body {
           padding: 1.25rem 0.9375rem;
-          .replyMsgBox {
+          .replyList {
             margin: 1.25rem 0 0 1.25rem;
             border: 1px solid #dcdfe6;
-            .r-msg {
-              padding: 0.9375rem 0.625rem;
+            &:hover a.reply {
+              opacity: 0.8;
             }
-            .r-footer {
+            .reply-header {
+              display: flex;
+              justify-content: space-between;
               opacity: 0.8;
               color: #606266;
               font-size: 12px;
               user-select: none;
               padding: 0.3125rem 0.625rem;
+            }
+            .reply-content {
+              padding: 0.9375rem 0.625rem;
+            }
+            .reply-footer {
               border-top: 1px solid #dcdfe6;
+              padding: 0.3125rem 0.625rem;
+              font-size: 0.875rem;
+              opacity: 0.8;
+              color: #606266;
+              font-size: 12px;
             }
           }
         }

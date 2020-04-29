@@ -10,42 +10,18 @@
                  @click="handleReplyTo">Reply</el-button>
     </template>
     <template v-else>
-      <template v-if="infoPanel">
-        <div class="subFooter"
-             @mouseenter="handleEnter"
-             @mouseleave="handleLeave">
-          <span class="name">{{ itemAuthor }} @ {{ itemToAuthor }}</span>
-
-          <transition mode="out-in"
-                      name="fade">
-            <span v-if="showDate"
-                  class="date"
-                  key="date">{{ date | dateFormat('{y}.{m}.{d}') }}</span>
-            <a v-else
-               href=""
-               class="reply"
-               @click.stop.prevent="handleReply"
-               key="reply">
-              <i class="iconfont icon-reply"></i>
-            </a>
-          </transition>
-
-        </div>
-      </template>
-      <template v-else>
-        <a href=""
-           class="zan"
-           @click.stop.prevent="handleLikes"
-           :class="isClicked ? 'changed-color' : ''">
-          <i class="iconfont icon-zan"></i>
-          <span class="zan-count">({{ likes }})</span>
-        </a>
-        <a href=""
-           class="reply"
-           @click.stop.prevent="handleReply">
-          <i class="iconfont icon-reply"></i>
-        </a>
-      </template>
+      <a href=""
+         class="zan"
+         @click.stop.prevent="handleLikes"
+         :class="isClicked ? 'changed-color' : ''">
+        <i class="iconfont icon-zan"></i>
+        <span class="zan-count">({{ like }})</span>
+      </a>
+      <a href=""
+         class="reply"
+         @click.stop.prevent="handleReply">
+        <i class="iconfont icon-reply"></i>
+      </a>
     </template>
   </div>
 </template>
@@ -55,6 +31,7 @@ export default {
   name: 'replyMode',
   props: {
     id: String,
+    sId: String,
     replyMode: {
       type: Boolean,
       default: false
@@ -63,41 +40,27 @@ export default {
       type: String,
       default: ''
     },
+    likes: {
+      type: Number,
+      default: 0
+    },
     toAuthor: {
       type: String,
       default: ''
-    },
-    likes: {
-      type: [Number, Boolean],
-      default: 0
-    },
-    infoPanel: {
-      type: Boolean,
-      default: false
-    },
-    noLikes: {
-      type: Boolean,
-      default: true
     },
     date: {
       type: [Date, Number],
       default: Date.now()
     },
-    itemAuthor: {
-      type: String,
-      default: ''
-    },
-    itemToAuthor: {
-      type: String,
-      default: ''
-    }
+    isSub: Boolean,
   },
   data () {
     return {
       isOpen: this.replyMode,
       content: '',
-      showDate: true,
-      isClicked: false
+      isClicked: false,
+      like: this.likes,
+      userLikes: []
     }
   },
   methods: {
@@ -111,11 +74,9 @@ export default {
       }
       const replyForm = {
         id: this.id,
-        content: this.content,
         author: this.author,
         toAuthor: this.toAuthor,
-        date: this.date,
-        selfId: (Date.now() * 1000 * 60) / 6,
+        content: this.content,
       }
       this.$emit('replyForm', replyForm)
       this.content = ''
@@ -128,36 +89,24 @@ export default {
       this.showDate = true
     },
     handleLikes () {
-      this.isClicked = !this.isClicked
-    }
-  },
-  filters: {
-    dateFormat (val, dateFormat) {
-      const date = new Date(val)
-      const dateInfoObj = {
-        y: date.getFullYear(),
-        m: date.getMonth(),
-        d: date.getDate()
+      if (this.isClicked) {
+        return false
       }
-      const dateStr = dateFormat.replace(/{([ymd])+}/g, (ret, key) => {
-        const val = dateInfoObj[key]
-        return val.toString()
-      })
-      return dateStr
-    }
+      this.like += 1
+
+      const data = {
+        id: this.id,
+        sId: this.isSub ? this.sId : '',
+        type: this.isSub ? 0 : 1
+      }
+      this.$store.dispatch('comment/submitLike', data)
+      this.isClicked = true
+    },
   }
 }
 </script>
 
 <style lang='less'>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 .reply-mode {
   display: flex;
   justify-content: space-between;
@@ -187,14 +136,6 @@ export default {
     }
     &.reply {
       opacity: 0;
-    }
-  }
-  .subFooter {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    a.reply {
-      opacity: 0.8;
     }
   }
 }

@@ -1,12 +1,12 @@
 import {
   createComment,
   getCommentsByArticleID,
-  updateComment
+  updateComment,
+  submitLike
 } from '../api/comment'
 
 export const state = () => {
   return {
-    login: false,
     data: []
   }
 }
@@ -24,6 +24,14 @@ export const mutations = {
     state.data.map(item => {
       if (Object.is(item._id, res.id)) {
         item.replyList.push(res)
+      }
+    })
+  },
+
+  SUBMIT_LIKE(state, res) {
+    state.data.map(item => {
+      if (Object.is(item._id, res.id)) {
+        state.likes = res.likes
       }
     })
   }
@@ -55,5 +63,17 @@ export const actions = {
     }
 
     return res
+  },
+
+  async submitLike({ commit }, data) {
+    const res = await submitLike(data)
+
+    if (res && res.data) {
+      commit('SUBMIT_LIKE', res.data)
+    }
+
+    console.log(res)
+
+    return res.data
   }
 }
