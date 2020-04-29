@@ -73,12 +73,13 @@ export default {
         return false
       }
       const replyForm = {
-        id: this.id,
+        id: this.isSub ? this.sId : this.id,
         data: {
           author: this.author,
           toAuthor: this.toAuthor,
           content: this.content,
           queryId: Math.floor(Date.now() * 1000 / 60),
+          type: this.isSub ? 0 : 1,
           commentAt: Date.now()
         }
       }
