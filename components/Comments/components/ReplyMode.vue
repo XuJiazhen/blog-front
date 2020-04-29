@@ -78,7 +78,8 @@ export default {
           author: this.author,
           toAuthor: this.toAuthor,
           content: this.content,
-          queryId: Date.now() * 1000 / 60
+          queryId: Math.floor(Date.now() * 1000 / 60),
+          commentAt: Date.now()
         }
       }
       this.$emit('replyForm', replyForm)

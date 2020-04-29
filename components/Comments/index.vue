@@ -171,12 +171,12 @@ export default {
   },
   methods: {
     async submitComment () {
-      this.loading = true
       const comment = {
         articleId: this.articleId,
         author: this.commentForm.author,
         email: this.commentForm.email,
         content: this.commentForm.content,
+        publishedAt: Date.now(),
         replyList: {
           id: '',
           data: []
@@ -184,6 +184,7 @@ export default {
       }
 
       if (this.checkForm()) {
+        this.loading = true
         await this.$store.dispatch('comment/createComment', comment)
         this.commentForm.content = ''
         this.loading = false
