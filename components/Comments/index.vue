@@ -258,6 +258,7 @@ export default {
     logout () {
       this.userInfoCacheMode = false
       localStorage.clear('UserInfo')
+      localStorage.clear('UserLikes')
       this.commentForm.author = ''
       this.commentForm.email = ''
     }
