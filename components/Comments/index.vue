@@ -106,7 +106,9 @@
                               :author="commentForm.author"
                               :toAuthor="replyItem.author"
                               :likes="replyItem.likes"
-                              @replyForm="handleReplyForm" />
+                              @replyForm="handleReplyForm"
+                              @cacheLikes="handleCacheLike"
+                              :likeComments="likeComments" />
                 </div>
               </div>
             </template>
@@ -119,7 +121,9 @@
                         :author="commentForm.author"
                         :toAuthor="item.author"
                         :likes="item.likes"
-                        @replyForm="handleReplyForm" />
+                        @replyForm="handleReplyForm"
+                        @cacheLikes="handleCacheLike"
+                        :likeComments="likeComments" />
           </div>
         </li>
       </ul>
@@ -157,6 +161,7 @@ export default {
       cacheUserInfo: false,
       isEdit: false,
       loading: false,
+      likeComments: []
     }
   },
   mounted () {
@@ -223,10 +228,20 @@ export default {
       return true
     },
     initUser () {
-      if (localStorage.getItem('UserInfo')) {
+      const userInfo = localStorage.getItem('UserInfo')
+      const UserLikes = localStorage.getItem('UserLikes')
+      if (userInfo) {
         this.userInfoCacheMode = true
         this.commentForm = JSON.parse(localStorage.getItem('UserInfo'))
       }
+      if (UserLikes) {
+        this.likeComments = JSON.parse(localStorage.getItem('UserLikes'))
+      }
+    },
+    handleCacheLike (id) {
+      if (this.likeComments.includes(id)) return false
+      this.likeComments.push(id)
+      localStorage.setItem('UserLikes', JSON.stringify(this.likeComments))
     },
     editUserInfo () {
       this.isEdit = true

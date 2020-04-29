@@ -12,8 +12,8 @@
     <template v-else>
       <a href=""
          class="zan"
-         @click.stop.prevent="handleLikes"
-         :class="isClicked ? 'changed-color' : ''">
+         @click.stop.prevent="handleLikes(id)"
+         :class="{actived: checkCacheLike(id)}">
         <i class="iconfont icon-zan"></i>
         <span class="zan-count">({{ like }})</span>
       </a>
@@ -53,6 +53,7 @@ export default {
       default: Date.now()
     },
     isSub: Boolean,
+    likeComments: null
   },
   data () {
     return {
@@ -60,7 +61,7 @@ export default {
       content: '',
       isClicked: false,
       like: this.likes,
-      userLikes: []
+      cacheLikeComments: []
     }
   },
   methods: {
@@ -93,10 +94,10 @@ export default {
     handleLeave () {
       this.showDate = true
     },
-    handleLikes () {
-      if (this.isClicked) {
-        return false
-      }
+    handleLikes (id) {
+      if (this.isClicked) return false
+      if (this.checkCacheLike(id)) return false
+
       this.like += 1
 
       const data = {
@@ -104,9 +105,17 @@ export default {
         sId: this.isSub ? this.sId : '',
         type: this.isSub ? 0 : 1
       }
-      this.$store.dispatch('comment/submitLike', data)
+      this.$store.dispatch('comment/submitLike', data).then(res => {
+        this.$emit('cacheLikes', id)
+      }).catch(err => {
+        throw new Error(err)
+      })
       this.isClicked = true
     },
+
+    checkCacheLike (id) {
+      return this.likeComments.includes(id)
+    }
   }
 }
 </script>
@@ -133,7 +142,7 @@ export default {
     opacity: 0.8;
     color: #606266;
     transition: all 0.2s;
-    &.changed-color {
+    &.actived {
       color: #409eff;
     }
     &:hover {
