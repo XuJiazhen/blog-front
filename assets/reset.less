@@ -24,3 +24,32 @@ html {
 ul {
   list-style: none;
 }
+
+.backtop,
+.like-article,
+.gocmt {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 20px;
+  border: 1px solid #dcdfe6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  opacity: 0.5;
+  &:hover {
+    cursor: pointer;
+    border-color: #409eff;
+    color: #409eff;
+    opacity: 1;
+  }
+}
+
+.like-article:hover {
+  color: rgb(211, 56, 28);
+  border-color: rgb(211, 56, 28);
+}
+
+.gocmt {
+  margin: 0.625rem 0;
+}

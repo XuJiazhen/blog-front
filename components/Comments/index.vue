@@ -309,6 +309,10 @@ export default {
         button {
           border-radius: 0;
           transition: all 0.2s;
+          &:hover {
+            border-color: #409eff;
+            color: #409eff;
+          }
         }
       }
     }
@@ -331,6 +335,10 @@ export default {
           margin: 0;
           border-radius: 0;
           transition: all 0.2s;
+          &:hover {
+            border-color: #409eff;
+            color: #409eff;
+          }
         }
       }
       input {

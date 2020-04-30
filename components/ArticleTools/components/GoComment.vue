@@ -1,5 +1,7 @@
 <template>
-  <div class="gocmt">Go To Comment</div>
+  <div class="gocmt">
+    <i class="iconfont icon-cmt"></i>
+  </div>
 </template>
 
 <script>
@@ -7,6 +9,3 @@ export default {
   name: 'GoComment'
 }
 </script>
-
-<style>
-</style>

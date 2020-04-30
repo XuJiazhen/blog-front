@@ -23,7 +23,7 @@ export default {
 <style lang="less">
 .tools-container {
   position: fixed;
-  top: 70%;
-  right: 0;
+  bottom: 20%;
+  right: 0.625rem;
 }
 </style>
