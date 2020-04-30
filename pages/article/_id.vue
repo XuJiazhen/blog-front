@@ -14,17 +14,20 @@
     <div class="info">
       版权信息：非商用-署名-自由转载
     </div>
-    <comments :article-id="article._id"></comments>
+    <comments :article-id="article._id" />
+    <article-tools />
   </div>
 </template>
 
 <script>
 import marked from '~/plugins/marked'
 import { getArticleById } from '~/api/article'
-import Comments from '~/Components/Comments'
+import Comments from '~/components/Comments'
+import ArticleTools from '~/components/ArticleTools'
 export default {
   components: {
-    Comments
+    Comments,
+    ArticleTools
   },
   asyncData ({ params, error }) {
     return getArticleById(params.id)
