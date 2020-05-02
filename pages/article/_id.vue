@@ -91,11 +91,18 @@ export default {
 </style>
 <style lang="less">
 .article-content {
+  font-family: Helvetica, Tahoma, Arial, sans-serif;
   main.content {
     color: #24292e;
     cursor: default;
+    .hljs-comment {
+      color: #b3b3b3;
+      font-style: normal;
+      font-size: 12.5px;
+    }
     p {
       margin: 1.5rem 0;
+      line-height: 1.8;
       code {
         color: #d19a66;
       }
@@ -122,8 +129,9 @@ export default {
     }
     ul {
       margin: 1.5rem 0;
+      list-style: inherit;
       li {
-        line-height: 1.5;
+        line-height: 1.8;
         code {
           color: #d19a66;
         }
