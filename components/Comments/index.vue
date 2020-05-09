@@ -1,5 +1,6 @@
 <template>
-  <div class="comments-container">
+  <div class="comments-container"
+       id="comments-container">
     <el-form :model="commentForm"
              ref="commentForm"
              class="comments-form">

@@ -18,7 +18,7 @@ import { getAllArticles } from '../api/article'
 export default {
   name: 'Index',
   components: {
-    ArticleItem
+    ArticleItem,
   },
   asyncData ({ error }) {
     return getAllArticles()

@@ -16,6 +16,8 @@ export default {
   },
   methods: {
     handleScroll () {
+      const el = document.querySelector('html')
+
       let timer = null
       cancelAnimationFrame(timer)
       timer = requestAnimationFrame(function frame () {
@@ -27,7 +29,8 @@ export default {
           cancelAnimationFrame(timer)
         }
       })
-    }
+    },
+
   },
   mounted () {
     window.addEventListener('scroll', (e) => {
@@ -36,7 +39,7 @@ export default {
       } else {
         this.showIcon = false
       }
-    })
+    }, { passive: false })
   },
 }
 </script>
@@ -46,6 +49,9 @@ export default {
   transition: all 0.2s;
   &.show {
     opacity: 0.5;
+  }
+  &.show:hover {
+    opacity: 1;
   }
   &.hide {
     opacity: 0;
