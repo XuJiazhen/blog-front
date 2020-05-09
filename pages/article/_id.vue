@@ -15,7 +15,13 @@
       版权信息：非商用-署名-自由转载
     </div>
     <comments :article-id="article._id" />
-    <article-tools />
+    <aside class="sidebar">
+      <like-article :article-id="article._id"
+                    :likes="article.likes"
+                    ref="likeArticle" />
+      <go-comment />
+      <back-top />
+    </aside>
   </div>
 </template>
 
@@ -23,11 +29,15 @@
 import marked from '~/plugins/marked'
 import { getArticleById } from '~/api/article'
 import Comments from '~/components/Comments'
-import ArticleTools from '~/components/ArticleTools'
+import BackTop from '~/components/ArticleTools/BackTop.vue'
+import LikeArticle from '~/components/ArticleTools/LikeArticle.vue'
+import GoComment from '~/components/ArticleTools/GoComment.vue'
 export default {
   components: {
     Comments,
-    ArticleTools
+    BackTop,
+    GoComment,
+    LikeArticle
   },
   asyncData ({ params, error }) {
     return getArticleById(params.id)
@@ -42,6 +52,9 @@ export default {
     return {
       article: {},
     }
+  },
+  mounted () {
+    this.$refs.likeArticle.initCachedLikes(this.article._id)
   },
   filters: {
     dateFromat (val, dateFormat) {
@@ -86,6 +99,11 @@ export default {
     border-bottom: 1px solid #e6e6e6;
     padding: 0.625rem 0;
     user-select: none;
+  }
+  .sidebar {
+    position: fixed;
+    bottom: 20%;
+    right: 0.625rem;
   }
 }
 </style>

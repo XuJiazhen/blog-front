@@ -13,7 +13,7 @@
       <a href=""
          class="zan"
          @click.stop.prevent="handleLikes(id)"
-         :class="{actived: checkCacheLike(id)}">
+         :class="{actived: checkCachedLike(id)}">
         <i class="iconfont icon-zan"></i>
         <span class="zan-count">({{ like }})</span>
       </a>
@@ -96,7 +96,7 @@ export default {
     },
     handleLikes (id) {
       if (this.isClicked) return false
-      if (this.checkCacheLike(id)) return false
+      if (this.checkCachedLike(id)) return false
 
       this.like += 1
 
@@ -113,7 +113,7 @@ export default {
       this.isClicked = true
     },
 
-    checkCacheLike (id) {
+    checkCachedLike (id) {
       return this.likeComments.includes(id)
     }
   }

@@ -20,12 +20,15 @@ export default {
       const duration = 150
 
       function run () {
+        // 每一帧的时间
         const time = +new Date() - startTime
-        console.log(time);
 
+        // time / duration 表示滚动 150ms 需要多少帧
+        // 以及每一帧在 Y 轴上滚动多少距离
         window.scrollTo(0, scrollY + eleY * (time / duration))
         run.timer = requestAnimationFrame(run)
 
+        // 时间到了则表示滚动到了目标位置，取消动画
         if (time >= duration) {
           window.scrollTo(0, endPosition)
           cancelAnimationFrame(run.timer)

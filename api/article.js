@@ -13,3 +13,10 @@ export function getArticleById(id) {
     method: 'get'
   })
 }
+
+export function likeArticle(id) {
+  return request({
+    url: `/article/like/${id}`,
+    method: 'put'
+  })
+}
