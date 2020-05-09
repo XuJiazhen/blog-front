@@ -30,11 +30,38 @@ export default {
         }
       })
     },
+  },
+  getScrollTop () {
+    let scrollTop = 0
+    let documentScrollTop = 0
+    let bodyScrollTop = 0
 
+    if (document.documentElement) {
+      documentScrollTop = document.documentElement.scrollTop
+    }
+    if (document.body) {
+      bodyScrollTop = document.body.scrollTop
+    }
+    scrollTop = documentScrollTop ? documentScrollTop : bodyScrollTop
+    return scrollTop
   },
   mounted () {
+    function getScrollTop () {
+      let scrollTop = 0
+      let documentScrollTop = 0
+      let bodyScrollTop = 0
+
+      if (document.documentElement) {
+        documentScrollTop = document.documentElement.scrollTop
+      }
+      if (document.body) {
+        bodyScrollTop = document.body.scrollTop
+      }
+      scrollTop = documentScrollTop ? documentScrollTop : bodyScrollTop
+      return scrollTop
+    }
     window.addEventListener('scroll', (e) => {
-      if (document.documentElement.scrollTop > window.innerHeight) {
+      if (getScrollTop() > window.innerHeight) {
         this.showIcon = true
       } else {
         this.showIcon = false
