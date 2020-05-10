@@ -30,6 +30,9 @@ export default {
   padding: 0 2.5rem;
   z-index: 999;
   background-color: #fff;
+  @media screen and(min-width: 320px) and(max-width: 799px) {
+    padding: 0 0.9375rem;
+  }
   .links {
     text-align: right;
     user-select: none;

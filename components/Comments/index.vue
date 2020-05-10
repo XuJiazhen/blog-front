@@ -25,11 +25,15 @@
             </template>
             <template v-else>
               <el-col class="user"
-                      :span="20">
+                      :span="20"
+                      :sm="19"
+                      :xs="17">
                 Hello, <span class="author">{{ commentForm.author }}</span>
               </el-col>
               <el-col class="btns"
-                      :span="4">
+                      :span="4"
+                      :sm="5"
+                      :xs="7">
                 <el-button plain
                            size="mini"
                            @click="editUserInfo">
@@ -288,6 +292,12 @@ export default {
   margin: 1.875rem 0;
   .el-form {
     padding: 0 3rem;
+    @media screen and(min-width: 320px) and(max-width: 414px) {
+      padding: 0;
+    }
+    @media screen and(min-width: 768px) and(max-width: 768px) {
+      padding: 0 2rem;
+    }
     .el-form-item {
       margin: 0;
       input {
@@ -322,6 +332,13 @@ export default {
       align-items: center;
       background-color: #f7f7f7;
       padding: 0.3125rem 1rem;
+      @media screen and(min-width: 320px) and(max-width: 414px) {
+        padding-left: 0.625rem;
+        padding-right: 0.625rem;
+      }
+      @media screen and(max-width: 320px) {
+        padding: 5px;
+      }
       .user {
         text-align: left;
         user-select: none;
@@ -332,6 +349,10 @@ export default {
       }
       .btns {
         text-align: right;
+        @media screen and(min-width: 320px) and(max-width: 799px) {
+          display: flex;
+          justify-content: space-between;
+        }
         button {
           margin: 0;
           border-radius: 0;
@@ -339,6 +360,13 @@ export default {
           &:hover {
             border-color: #409eff;
             color: #409eff;
+          }
+          @media screen and(min-width: 320px) and(max-width: 414px) {
+            padding-left: 0.625rem;
+            padding-right: 0.625rem;
+          }
+          @media screen and(max-width: 320px) {
+            padding: 5px;
           }
         }
       }
@@ -354,6 +382,12 @@ export default {
   .comments-list-box {
     margin-top: 1.875rem;
     padding: 0 3rem;
+    @media screen and(min-width: 320px) and(max-width: 414px) {
+      padding: 0;
+    }
+    @media screen and(min-width: 768px) and(max-width: 768px) {
+      padding: 0 2rem;
+    }
     .list {
       padding: 0;
       .item {
