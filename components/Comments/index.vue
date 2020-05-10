@@ -292,7 +292,7 @@ export default {
   margin: 1.875rem 0;
   .el-form {
     padding: 0 3rem;
-    @media screen and(min-width: 320px) and(max-width: 414px) {
+    @media screen and(min-width: 320px) and(max-width: 750px) {
       padding: 0;
     }
     @media screen and(min-width: 768px) and(max-width: 768px) {
