@@ -143,6 +143,7 @@ export default {
         height: 100%;
         float: left;
         line-height: 1.8;
+        overflow: scroll;
       }
     }
     ul {
