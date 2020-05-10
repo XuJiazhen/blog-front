@@ -9,42 +9,36 @@
         <template v-if="userInfoCacheMode">
           <div class="userMode">
             <template v-if="isEdit">
-              <el-col :span="11">
-                <el-input v-model="commentForm.author" />
-              </el-col>
-              <el-col :span="11">
-                <el-input v-model="commentForm.email" />
-              </el-col>
-              <el-col class="btns"
-                      :span="2">
-                <el-button plain
-                           size="mini"
-                           @click="saveUserInfo">Save</el-button>
-              </el-col>
+
+              <el-input v-model="commentForm.author" />
+
+              <el-input v-model="commentForm.email" />
+
+              <el-button class="save"
+                         plain
+                         size="mini"
+                         @click="saveUserInfo">Save</el-button>
 
             </template>
             <template v-else>
-              <el-col class="user"
-                      :span="20"
-                      :sm="19"
-                      :xs="17">
+              <div class="user">
                 Hello, <span class="author">{{ commentForm.author }}</span>
-              </el-col>
-              <el-col class="btns"
-                      :span="4"
-                      :sm="5"
-                      :xs="7">
-                <el-button plain
+              </div>
+              <div class="btns">
+                <el-button class="edit"
+                           plain
                            size="mini"
                            @click="editUserInfo">
                   Edit
                 </el-button>
-                <el-button plain
+                <el-button class="logout"
+                           plain
                            size="mini"
                            @click="logout">
                   Logout
                 </el-button>
-              </el-col>
+
+              </div>
             </template>
           </div>
         </template>
@@ -328,19 +322,18 @@ export default {
       }
     }
     .userMode {
+      height: 30px;
+      box-sizing: content-box;
       display: flex;
       align-items: center;
       background-color: #f7f7f7;
       padding: 0.3125rem 1rem;
+      justify-content: space-between;
       @media screen and(min-width: 320px) and(max-width: 414px) {
         padding-left: 0.625rem;
         padding-right: 0.625rem;
       }
-      @media screen and(max-width: 320px) {
-        padding: 5px;
-      }
       .user {
-        text-align: left;
         user-select: none;
         .author {
           color: #3a8ee6;
@@ -348,34 +341,34 @@ export default {
         }
       }
       .btns {
-        text-align: right;
-        @media screen and(min-width: 320px) and(max-width: 799px) {
-          display: flex;
-          justify-content: space-between;
-        }
+        display: table;
         button {
           margin: 0;
           border-radius: 0;
           transition: all 0.2s;
+          border: none;
           &:hover {
-            border-color: #409eff;
             color: #409eff;
           }
           @media screen and(min-width: 320px) and(max-width: 414px) {
             padding-left: 0.625rem;
             padding-right: 0.625rem;
           }
-          @media screen and(max-width: 320px) {
-            padding: 5px;
-          }
+        }
+        .edit {
+          border-right: 1px solid #dcdfe6;
         }
       }
       input {
-        border-top: none;
-        border-left: none;
-        border-right: none;
+        border: none;
         border-radius: 0;
         background-color: #f7f7f7;
+        padding: 0;
+        height: 30px;
+      }
+      .save {
+        border: none;
+        border-radius: 0;
       }
     }
   }
