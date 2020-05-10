@@ -382,12 +382,13 @@ export default {
   .comments-list-box {
     margin-top: 1.875rem;
     padding: 0 3rem;
-    @media screen and(min-width: 320px) and(max-width: 414px) {
+    @media screen and(min-width: 320px) and(max-width: 750px) {
       padding: 0;
     }
     @media screen and(min-width: 768px) and(max-width: 768px) {
       padding: 0 2rem;
     }
+
     .list {
       padding: 0;
       .item {
