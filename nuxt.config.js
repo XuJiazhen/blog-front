@@ -14,10 +14,22 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: '代码，读书，Life :)'
+      },
+      {
+        hid: 'keywords',
+        name: 'keywords',
+        content: '前端开发，JavaScript，Vue，Node.js，Nuxt.js'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'dns-prefetch',
+        href: '//api.xujiazhen.website'
+      }
+    ],
+    noscript: [{ innerHTML: 'This website requires JavaScript.' }]
   },
   /*
    ** Customize the progress-bar color

@@ -132,6 +132,13 @@ export default {
         text-decoration: underline;
       }
     }
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0.67em 0;
+    }
     pre {
       font-size: 14px;
       overflow: hidden;
