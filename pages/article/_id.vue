@@ -119,7 +119,8 @@ export default {
       font-size: 12.5px;
     }
     p {
-      margin: 1.5rem 0;
+      // margin: 1.5rem 0;
+      margin: 1rem 0;
       line-height: 1.8;
       code {
         color: #d19a66;
@@ -132,9 +133,9 @@ export default {
       }
     }
     pre {
-      overflow: auto;
       font-size: 14px;
-      margin: 0.625rem 0;
+      overflow: hidden;
+      // margin: 0.625rem 0;
       code {
         background-color: #f7f7f7;
         border: 1px solid #e6e6e6;
@@ -143,16 +144,20 @@ export default {
         height: 100%;
         float: left;
         line-height: 1.8;
-        overflow: scroll;
+        // overflow: scroll;
+        overflow: auto;
       }
     }
     ul {
-      margin: 1.5rem 0;
+      margin: 1rem 0;
       list-style: inherit;
       li {
         line-height: 1.8;
         code {
           color: #d19a66;
+        }
+        p {
+          margin: 0;
         }
       }
     }
