@@ -74,9 +74,6 @@ export default {
 <style lang="less" scoped>
 .backtop {
   transition: all 0.2s;
-  &.show {
-    opacity: 0.5;
-  }
   &.show:hover {
     opacity: 1;
   }

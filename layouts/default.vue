@@ -34,5 +34,8 @@ export default {
       margin: 4.6875rem 0.9375rem 0 0.9375rem;
     }
   }
+  .main-footer {
+    background-color: white;
+  }
 }
 </style>

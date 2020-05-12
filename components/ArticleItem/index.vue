@@ -114,6 +114,7 @@ export default {
     font-weight: bold;
     user-select: none;
     padding: 0.625rem;
+    background-color: white;
   }
   .main {
     img {
@@ -146,6 +147,7 @@ export default {
     justify-content: space-between;
     color: #555;
     font-size: 0.875rem;
+    background-color: white;
     .info {
       display: flex;
       flex-flow: row nowrap;

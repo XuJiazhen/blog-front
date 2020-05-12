@@ -8,6 +8,16 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  body {
+    background-image: linear-gradient(
+        90deg,
+        rgba(50, 0, 0, 0.05) 3%,
+        rgba(0, 0, 0, 0) 3%
+      ),
+      linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
+    background-size: 20px 20px;
+    background-position: center center;
+  }
   a {
     color: #000;
     text-decoration: none;
@@ -36,7 +46,8 @@ ul {
   justify-content: center;
   align-items: center;
   transition: all 0.2s;
-  opacity: 0.5;
+  // opacity: 0.5;
+  background-color: white;
   &:hover {
     cursor: pointer;
     border-color: #409eff;

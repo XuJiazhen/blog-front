@@ -400,6 +400,8 @@ export default {
         }
         .item-body {
           padding: 1.25rem 0.9375rem;
+          background-color: white;
+
           .replyList {
             margin: 1.5625rem 0 0 1.5625rem;
             border: 1px solid #dcdfe6;
@@ -419,7 +421,6 @@ export default {
               padding: 0.9375rem 0.625rem;
             }
             .reply-footer {
-              // border-top: 1px solid #dcdfe6;
               padding: 0.3125rem 0.625rem;
               font-size: 0.875rem;
               opacity: 0.8;
@@ -429,7 +430,7 @@ export default {
           }
         }
         .item-footer {
-          // border-top: 1px solid #dcdfe6;
+          background-color: white;
           padding: 0.3125rem 0.9375rem;
           font-size: 0.875rem;
           &:hover a.reply {

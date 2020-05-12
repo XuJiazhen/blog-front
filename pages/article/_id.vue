@@ -96,7 +96,7 @@ export default {
   }
   .info {
     text-align: right;
-    border-bottom: 1px solid #e6e6e6;
+    // border-bottom: 1px solid #e6e6e6;
     padding: 0.625rem 0;
     user-select: none;
   }
