@@ -6,7 +6,9 @@
         <article-item :coverUrl="item.coverUrl"
                       :title="item.title"
                       :summary="item.summary"
-                      :date="item.releasedAt" />
+                      :date="item.releasedAt"
+                      :likes="item.likes"
+                      :cmts="item.cmts" />
       </nuxt-link>
     </template>
     <aside class="sidebar">
@@ -39,7 +41,7 @@ export default {
     return {
       articleList: []
     }
-  }
+  },
 }
 </script>
 <style lang="less" scoped>

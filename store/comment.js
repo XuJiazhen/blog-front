@@ -46,6 +46,7 @@ export const actions = {
     if (res && res.data) {
       commit('GET_CMLIST', res.data)
     }
+
     return res
   },
 

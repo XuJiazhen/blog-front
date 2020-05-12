@@ -2,6 +2,7 @@
   <div class="gocmt"
        @click="handleScroll">
     <i class="iconfont icon-cmt"></i>
+    <div class="count">{{ this.$store.state.comment.data.length }}</div>
   </div>
 </template>
 
@@ -40,3 +41,23 @@ export default {
   },
 }
 </script>
+
+<style lang="less">
+.gocmt {
+  position: relative;
+  .count {
+    position: absolute;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    top: -10px;
+    left: -10px;
+    background: #fff;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+}
+</style>
