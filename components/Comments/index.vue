@@ -46,7 +46,7 @@
           <el-col :span="12">
             <el-form-item prop="author">
               <el-input maxlength="12"
-                        placeholder="Name"
+                        placeholder="Name*"
                         v-model="commentForm.author" />
             </el-form-item>
           </el-col>
@@ -54,7 +54,7 @@
           <el-col :span="12">
             <el-form-item prop="email">
               <el-input maxlength="40"
-                        placeholder="Email"
+                        placeholder="Email*"
                         v-model="commentForm.email" />
             </el-form-item>
           </el-col>
@@ -148,7 +148,7 @@ export default {
     return {
       commentForm: {
         author: '',
-        email: 'xu.159623@gmail.com',
+        email: '',
         content: ''
       },
       likes: [],
@@ -284,6 +284,7 @@ export default {
 <style lang="less">
 .comments-container {
   margin: 1.875rem 0;
+
   .el-form {
     padding: 0 3rem;
     @media screen and(min-width: 320px) and(max-width: 750px) {
@@ -295,9 +296,8 @@ export default {
     .el-form-item {
       margin: 0;
       input {
-        border-top: none;
-        border-left: none;
-        border-right: none;
+        background-color: #f7f7f7;
+        border: none;
         border-radius: 0;
       }
       .el-textarea {
@@ -386,7 +386,7 @@ export default {
       padding: 0;
       .item {
         border: 1px solid #dcdfe6;
-
+        // box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2) !important;
         margin-top: 0.9375rem;
         .item-header {
           display: flex;

@@ -124,6 +124,7 @@ export default {
 .reply-mode {
   display: flex;
   justify-content: space-between;
+
   &.open {
     padding: 0;
     input,
