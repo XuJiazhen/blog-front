@@ -41,23 +41,3 @@ export default {
   },
 }
 </script>
-
-<style lang="less">
-.gocmt {
-  position: relative;
-  .count {
-    position: absolute;
-    font-size: 14px;
-    width: 20px;
-    height: 20px;
-    top: -10px;
-    left: -10px;
-    background: #fff;
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-  }
-}
-</style>

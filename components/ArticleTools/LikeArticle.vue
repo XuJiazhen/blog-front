@@ -57,7 +57,6 @@ export default {
 
 <style lang="less">
 .like-article {
-  position: relative;
   &.actived {
     color: rgb(211, 56, 28);
     border-color: rgb(211, 56, 28);
@@ -67,19 +66,6 @@ export default {
     color: rgb(211, 56, 28);
     border-color: rgb(211, 56, 28);
     opacity: 1;
-  }
-  .count {
-    position: absolute;
-    font-size: 14px;
-    width: 20px;
-    height: 20px;
-    top: -10px;
-    left: -10px;
-    background: white;
-    z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 </style>
