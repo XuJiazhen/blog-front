@@ -16,7 +16,7 @@
 
           <p>
             <span>
-              本博客系统还在开发中，并不是最终版本，目前完成了第一阶段，欢迎有缘人提交BUG哦
+              本博客系统仍在施工中 - V1.0 Completed！欢迎有缘人提交BUG哦
               <a class="mail"
                  href="mailto:xu.159623@gmail.com">
                 <i class="iconfont icon-mail"></i>
