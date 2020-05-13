@@ -39,9 +39,14 @@ export default {
   },
   data () {
     return {
-      articleList: []
+      articleList: [],
     }
   },
+  head () {
+    return {
+      title: 'HOME'
+    }
+  }
 }
 </script>
 <style lang="less" scoped>

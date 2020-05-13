@@ -68,7 +68,7 @@
             </div>
           </div>
           <div class="gravatar">
-            <img src="https://static.xujiazhen.website/Avatar_2.jpg"
+            <img src="https://static.xujiazhen.website/image/large/Avatar_2.jpg"
                  alt="Gravatar">
           </div>
         </div>
@@ -81,6 +81,11 @@
 <script>
 export default {
   name: 'About',
+  head () {
+    return {
+      title: 'About'
+    }
+  },
   data () {
     return {
       infoList: [

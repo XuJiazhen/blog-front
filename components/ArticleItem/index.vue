@@ -5,14 +5,17 @@
     <el-row class="header">
       <span class="title">{{ title }}</span>
     </el-row>
+
     <el-row class="main">
       <img :src="coverUrl"
            :class="{ contrast: showInfo }" />
+      <!-- <progressive :imgName="coverUrl"
+                   :class="{ contrast: showInfo }"></progressive> -->
       <p class="summary"
          v-if="showInfo">{{ summary }}</p>
     </el-row>
-    <el-row class="footer">
 
+    <el-row class="footer">
       <div class="info"
            key="info">
         <span class="date">
@@ -34,8 +37,12 @@
 </template>
 
 <script>
+// import Progressive from '~/components/Progressive'
 export default {
   name: 'ArticleItem',
+  components: {
+    // Progressive
+  },
   props: {
     coverUrl: String,
     title: String,
@@ -96,15 +103,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-// .fade-enter-active,
-// .fade-leave-active {
-//   transition: opacity 0.3s;
-// }
-// .fade-enter,
-// .fade-leave-to {
-//   opacity: 0;
-// }
+<style lang="less">
 .article-item {
   box-sizing: border-box;
   margin-bottom: 2.5rem;
@@ -117,12 +116,12 @@ export default {
     background-color: white;
   }
   .main {
+    background: white;
     img {
       width: 100%;
       height: 20rem;
       object-fit: cover;
-      width: 100%;
-      transition: filter 0.3s;
+      transition: all 0.3s;
     }
   }
 

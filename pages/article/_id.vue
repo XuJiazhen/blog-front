@@ -8,6 +8,7 @@
         <span>LENGTH {{ article.content.length }}</span>
       </div>
       <img :src="article.coverUrl" />
+      <!-- <progressive :imgName="article.coverUrl"></progressive> -->
     </header>
     <main class="content"
           v-html="articleContent" />
@@ -32,12 +33,20 @@ import Comments from '~/components/Comments'
 import BackTop from '~/components/ArticleTools/BackTop.vue'
 import LikeArticle from '~/components/ArticleTools/LikeArticle.vue'
 import GoComment from '~/components/ArticleTools/GoComment.vue'
+// import Progressive from '~/components/Progressive'
 export default {
+  name: 'ArticleDetail',
+  head () {
+    return {
+      title: this.article.title
+    }
+  },
   components: {
     Comments,
     BackTop,
     GoComment,
-    LikeArticle
+    LikeArticle,
+    // Progressive
   },
   asyncData ({ params, error }) {
     return getArticleById(params.id)
@@ -79,7 +88,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .article-content {
   header {
     text-align: center;
@@ -89,8 +98,10 @@ export default {
     .subheader {
       user-select: none;
     }
+
     img {
       width: 100%;
+      height: 100%;
       margin: 1.25rem 0;
     }
   }
