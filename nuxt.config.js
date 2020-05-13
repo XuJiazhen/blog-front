@@ -4,7 +4,8 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: '临',
+    title: '临Lin',
+    titleTemplate: '%s - 临Lin',
     meta: [
       { charset: 'utf-8' },
       {

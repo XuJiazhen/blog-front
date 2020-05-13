@@ -7,7 +7,7 @@
             :span="24"
             class="links">
       <nuxt-link to="/">Article</nuxt-link>
-      <nuxt-link to="/">About</nuxt-link>
+      <nuxt-link to="/about">About</nuxt-link>
       <nuxt-link to="/">Life</nuxt-link>
     </el-col>
   </el-row>
