@@ -23,7 +23,7 @@ export default {
       timer = requestAnimationFrame(function frame () {
         let toTop = document.body.scrollTop || document.documentElement.scrollTop
         if (toTop > 0) {
-          document.body.scrollTop = document.documentElement.scrollTop = toTop - 150
+          document.body.scrollTop = document.documentElement.scrollTop = toTop - 200
           timer = requestAnimationFrame(frame)
         } else {
           cancelAnimationFrame(timer)

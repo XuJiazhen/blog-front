@@ -9,8 +9,6 @@
     <el-row class="main">
       <img :src="coverUrl"
            :class="{ contrast: showInfo }" />
-      <!-- <progressive :imgName="coverUrl"
-                   :class="{ contrast: showInfo }"></progressive> -->
       <p class="summary"
          v-if="showInfo">{{ summary }}</p>
     </el-row>
@@ -37,12 +35,8 @@
 </template>
 
 <script>
-// import Progressive from '~/components/Progressive'
 export default {
   name: 'ArticleItem',
-  components: {
-    // Progressive
-  },
   props: {
     coverUrl: String,
     title: String,

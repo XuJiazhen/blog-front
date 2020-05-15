@@ -18,7 +18,7 @@ export default {
 
       // +new Date() 隐式类型转换，日期 => 数字（时间戳）
       const startTime = +new Date()
-      const duration = 150
+      const duration = 500
 
       function run () {
         // 每一帧的时间
