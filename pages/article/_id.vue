@@ -67,7 +67,7 @@ export default {
       const date = new Date(val)
       const dateInfoObj = {
         y: date.getFullYear(),
-        m: date.getMonth(),
+        m: date.getMonth() + 1,
         d: date.getDate()
       }
       const dateStr = dateFormat.replace(/{([ymd])+}/g, (ret, key) => {

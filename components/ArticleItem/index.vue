@@ -63,7 +63,7 @@ export default {
       const date = new Date(val)
       const dateInfoObj = {
         y: date.getFullYear(),
-        m: date.getMonth(),
+        m: date.getMonth() + 1,
         d: date.getDate(),
         h: date.getHours()
       }
