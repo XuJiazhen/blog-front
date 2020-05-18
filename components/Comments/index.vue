@@ -10,9 +10,11 @@
           <div class="userMode">
             <template v-if="isEdit">
 
-              <el-input v-model="commentForm.author" />
+              <el-input v-model="commentForm.author"
+                        maxlength="12" />
 
-              <el-input v-model="commentForm.email" />
+              <el-input v-model="commentForm.email"
+                        maxlength="40" />
 
               <el-button class="save"
                          plain
@@ -65,7 +67,8 @@
         <el-input placeholder="Your comments goes here."
                   v-model="commentForm.content"
                   type="textarea"
-                  resize="none" />
+                  resize="none"
+                  maxlength="1000" />
       </el-form-item>
 
       <el-form-item class="btns">
@@ -401,6 +404,9 @@ export default {
         .item-body {
           padding: 1.25rem 0.9375rem;
           background-color: white;
+          p {
+            word-wrap: break-word;
+          }
 
           .replyList {
             margin: 1.5625rem 0 0 1.5625rem;
