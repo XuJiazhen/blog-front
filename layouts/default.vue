@@ -22,7 +22,8 @@ export default {
 <style lang="less" scoped>
 .app {
   .main-container {
-    margin: 4.6875rem 18.5rem 0 18.5rem;
+    width: 1050px;
+    margin: 4.6875rem auto 0 auto;
 
     @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
       margin: 4.6875rem 0.9375rem 0 0.9375rem;
