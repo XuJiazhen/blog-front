@@ -75,6 +75,10 @@ export default {
     justify-content: space-between;
     .article-list {
       width: 75%;
+
+      @media screen and(min-width: 320px) and(max-width: 799px) {
+        width: 100%;
+      }
     }
     .aside-box {
       width: 25%;
@@ -82,6 +86,10 @@ export default {
       margin-bottom: 2.5rem;
       display: flex;
       flex-flow: column nowrap;
+
+      @media screen and(min-width: 320px) and(max-width: 799px) {
+        display: none;
+      }
 
       .notice {
         background-color: white;

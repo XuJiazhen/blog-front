@@ -27,10 +27,12 @@ export default {
 
     @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
       margin: 4.6875rem 0.9375rem 0 0.9375rem;
+      width: initial;
     }
 
     @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
       margin: 4.6875rem 0.9375rem 0 0.9375rem;
+      width: initial;
     }
   }
   .main-footer {
