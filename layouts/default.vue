@@ -29,24 +29,42 @@
         </div>
         <nav class="nav">
           <ul class="list">
-            <li class="item">HOME</li>
+            <nuxt-link to="/">
+              <li class="item">HOME</li>
+            </nuxt-link>
             <li class="item">CODE</li>
             <li class="item">LIFE</li>
             <li class="item">READ</li>
             <li class="item">MUSIC</li>
-            <li class="item">ABOUT</li>
+            <nuxt-link to="/about">
+              <li class="item">ABOUT</li>
+            </nuxt-link>
           </ul>
         </nav>
       </aside>
       <nuxt class="article" />
       <aside class="aside-right">
+        <div class="search">
+          <el-input class="box"
+                    placeholder="Search..."></el-input>
+          <el-button class="btn"
+                     icon="el-icon-search"
+                     size="mini"></el-button>
+        </div>
+        <div class="hot catalog">热点文章 / 文章目录占位</div>
+        <div class="calendar">日历占位</div>
+        <div class="tags">文章标签占位</div>
         <div class="notice">
           <p class="title">NOTICE</p>
           <p class="content">重构中...</p>
         </div>
         <div class="update-log">
           <p class="title">UPDATE LOG</p>
-          <p class="content"></p>
+          <ul class="content">
+            <li>修改样式（静态内容）</li>
+            <li>后台暂未支持</li>
+            <li>页面样式未确定，构思中...</li>
+          </ul>
         </div>
       </aside>
     </div>
@@ -182,10 +200,38 @@ export default {
         display: none;
       }
 
+      .search {
+        margin-bottom: 0.625rem;
+        display: flex;
+        flex-flow: row nowrap;
+        border: 1px solid #e6e6e6;
+        input,
+        button {
+          border-radius: 0;
+        }
+        input {
+          border: none;
+        }
+        button {
+          transition: all 0.3s;
+          &:hover {
+            background-color: #409eff;
+            color: white;
+          }
+          border: none;
+        }
+      }
+      .hot,
+      .calendar,
+      .tags {
+        border: 1px solid #e6e6e6;
+        margin-bottom: 0.625rem;
+        padding: 0.625rem;
+        user-select: none;
+      }
       .notice {
         background-color: white;
         border: 1px solid #e6e6e6;
-
         user-select: none;
 
         .title {
@@ -207,16 +253,27 @@ export default {
       .update-log {
         margin-top: 0.625rem;
         background-color: white;
-        padding: 0.625rem;
         // box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2) !important;
         border: 1px solid #e6e6e6;
         .title {
           font-weight: bold;
           user-select: none;
+          padding: 0.625rem;
+
           &::before {
             content: '';
             border-left: 10px solid #409eff;
             margin-right: 0.625rem;
+          }
+        }
+        ul {
+          padding: 0.625rem;
+          font-size: 14px;
+          letter-spacing: 2px;
+
+          li {
+            user-select: none;
+            line-height: 1.5;
           }
         }
       }

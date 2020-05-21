@@ -1,9 +1,7 @@
 <template>
   <div class="main-header">
-
     <img src="https://static.xujiazhen.website/image/large/site-logo.jpg"
          class="logo">
-
   </div>
 </template>
 
