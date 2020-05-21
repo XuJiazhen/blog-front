@@ -87,6 +87,8 @@ export default {
 
 <style lang="less">
 .article-content {
+  font-size: 14px;
+
   header {
     text-align: center;
     h1 {
@@ -104,7 +106,7 @@ export default {
   }
   .info {
     text-align: right;
-    padding: 0.625rem 0;
+    padding: 0.625rem 0.625rem;
     user-select: none;
   }
   .sidebar {
@@ -120,6 +122,7 @@ export default {
   main.content {
     color: #24292e;
     cursor: default;
+
     .hljs-comment {
       color: #b3b3b3;
       font-style: normal;

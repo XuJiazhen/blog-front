@@ -100,8 +100,9 @@ export default {
 <style lang="less">
 .article-item {
   box-sizing: border-box;
-  margin-bottom: 2.5rem;
-  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2) !important;
+  margin-bottom: 2rem;
+  // box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid #e6e6e6;
   .header {
     text-align: left;
     font-weight: bold;
