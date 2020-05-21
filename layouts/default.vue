@@ -213,7 +213,6 @@ export default {
         .title {
           font-weight: bold;
           user-select: none;
-          padding: 0.625rem;
           &::before {
             content: '';
             border-left: 10px solid #409eff;

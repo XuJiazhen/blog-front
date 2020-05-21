@@ -28,6 +28,10 @@ module.exports = {
       {
         rel: 'dns-prefetch',
         href: '//api.xujiazhen.website'
+      },
+      {
+        rel: 'dns-prefetch',
+        href: '//static.xujiazhen.website'
       }
     ],
     noscript: [{ innerHTML: 'This website requires JavaScript.' }]
