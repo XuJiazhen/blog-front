@@ -1,16 +1,10 @@
 <template>
-  <el-row tag="header"
-          class="main-header"
-          type="flex"
-          align="middle">
-    <el-col tag="nav"
-            :span="24"
-            class="links">
-      <nuxt-link to="/">Article</nuxt-link>
-      <nuxt-link to="/about">About</nuxt-link>
-      <nuxt-link to="/">Life</nuxt-link>
-    </el-col>
-  </el-row>
+  <div class="main-header">
+
+    <img src="https://static.xujiazhen.website/image/large/site-logo.jpg"
+         class="logo">
+
+  </div>
 </template>
 
 <script>
@@ -30,27 +24,16 @@ export default {
   padding: 0 2.5rem;
   z-index: 999;
   background-color: #fff;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+
   @media screen and(min-width: 320px) and(max-width: 799px) {
     padding: 0 0.9375rem;
   }
-  .links {
-    text-align: right;
-    user-select: none;
-    a {
-      margin: 0 0.625rem;
-      letter-spacing: 0.21875rem;
-      transition: color 0.3s;
-      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-      font-size: 18px;
-      font-weight: 200;
-      &:last-child {
-        margin-right: 0;
-      }
-      &:hover {
-        color: #409eff;
-      }
-    }
+  .logo {
+    height: 100%;
   }
 }
 </style>
