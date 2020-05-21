@@ -163,7 +163,8 @@ export default {
       overflow: hidden;
       code {
         background-color: #f7f7f7;
-        border: 1px solid #e6e6e6;
+        // border: 1px solid #e6e6e6;
+        cursor: text;
         padding: 1rem;
         width: 100%;
         height: 100%;

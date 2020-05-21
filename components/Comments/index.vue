@@ -68,7 +68,8 @@
                   v-model="commentForm.content"
                   type="textarea"
                   resize="none"
-                  maxlength="1000" />
+                  maxlength="1000"
+                  @keyup.native.enter="submitComment" />
       </el-form-item>
 
       <el-form-item class="btns">

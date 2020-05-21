@@ -2,8 +2,8 @@
   <footer class="main-footer">
     <p>
       <span>&copy;{{ new Date().getFullYear() }}</span>
-      <span>XUJIAZHEN</span>
-      <span>BLOG - POWERD BY NUXTJS & NESTJS</span>
+      <span>XUJIAZHEN - </span>
+      <span>BLOG POWERD BY NUXTJS & NESTJS</span>
       <span> - DESIGNED BY ME</span>
     </p>
   </footer>
