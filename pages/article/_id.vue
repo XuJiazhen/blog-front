@@ -122,6 +122,16 @@ export default {
   main.content {
     color: #24292e;
     cursor: default;
+    padding: 0 0.625rem;
+
+    background-image: linear-gradient(
+        90deg,
+        rgba(50, 0, 0, 0.05) 3%,
+        rgba(0, 0, 0, 0) 3%
+      ),
+      linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
+    background-size: 20px 20px;
+    background-position: center center;
 
     .hljs-comment {
       color: #b3b3b3;

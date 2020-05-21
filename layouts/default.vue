@@ -12,8 +12,31 @@
             <h3 class="name">临Lin</h3>
             <p class="bb">be Simple</p>
           </div>
-          <div class="site-sta"></div>
+          <div class="site-sta">
+            <div class="articles">
+              <i class="iconfont icon-article"></i>
+              <span class="num">0</span>
+            </div>
+            <div class="diaries">
+              <i class="iconfont icon-diary"></i>
+              <span class="num">0</span>
+            </div>
+            <div class="cmts">
+              <i class="iconfont icon-cmt-d"></i>
+              <span class="num">0</span>
+            </div>
+          </div>
         </div>
+        <nav class="nav">
+          <ul class="list">
+            <li class="item">HOME</li>
+            <li class="item">CODE</li>
+            <li class="item">LIFE</li>
+            <li class="item">READ</li>
+            <li class="item">MUSIC</li>
+            <li class="item">ABOUT</li>
+          </ul>
+        </nav>
       </aside>
       <nuxt class="article" />
       <aside class="aside-right">
@@ -64,15 +87,18 @@ export default {
     }
 
     .aside-left {
-      border: 1px solid #e6e6e6;
       width: 200px;
       position: fixed;
       height: auto;
+      @media screen and(min-width: 320px) and(max-width: 799px) {
+        display: none;
+      }
 
       .card-me {
         position: relative;
         overflow: hidden;
         user-select: none;
+        background-color: white;
         &:hover .avatar {
           transform: rotate(360deg);
         }
@@ -93,7 +119,7 @@ export default {
           transition: all 0.3s;
         }
         .info-me {
-          margin: 0.625rem 0;
+          margin-top: 0.625rem;
           text-align: center;
           .bb {
             padding: 0.625rem;
@@ -102,12 +128,49 @@ export default {
             font-weight: 200;
           }
         }
+        .site-sta {
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.625rem 1.875rem;
+          font-size: 18px;
+
+          i {
+            opacity: 0.8;
+          }
+        }
+      }
+      .nav {
+        user-select: none;
+
+        ul {
+          padding: 0.625rem;
+          li {
+            margin: 0.625rem 0;
+            padding: 0.625rem 0;
+            text-align: center;
+            border-bottom: 1px solid #e6e6e6;
+            cursor: pointer;
+            transition: all 0.3s;
+            &:hover {
+              background-color: #409eff;
+              color: white;
+            }
+          }
+        }
       }
     }
     .article {
       margin-left: 215px;
       margin-right: 15px;
       width: 770px;
+
+      @media screen and(min-width: 320px) and(max-width: 799px) {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+      }
     }
     .aside-right {
       width: 270px;
