@@ -52,7 +52,6 @@
                      size="mini"></el-button>
         </div>
         <div class="hot catalog">热点文章 / 文章目录占位</div>
-        <div class="calendar">日历占位</div>
         <div class="tags">文章标签占位</div>
         <div class="notice">
           <p class="title">NOTICE</p>
@@ -66,6 +65,7 @@
             <li>页面样式未确定，构思中...</li>
           </ul>
         </div>
+        <calendar></calendar>
       </aside>
     </div>
     <main-footer />
@@ -75,10 +75,12 @@
 <script>
 import MainHeader from '../components/MainHeader/index'
 import MainFooter from '../components/MainFooter/index'
+import Calendar from '../components/Calendar/index'
 export default {
   components: {
     MainHeader,
-    MainFooter
+    MainFooter,
+    Calendar
   }
 }
 </script>
@@ -182,7 +184,7 @@ export default {
     .article {
       margin-left: 215px;
       margin-right: 15px;
-      width: 770px;
+      width: auto;
 
       @media screen and(min-width: 320px) and(max-width: 799px) {
         margin-left: 0;
@@ -191,7 +193,8 @@ export default {
       }
     }
     .aside-right {
-      width: 270px;
+      max-width: 250px;
+      min-width: 250px;
       margin-bottom: 2.5rem;
       display: flex;
       flex-flow: column nowrap;
