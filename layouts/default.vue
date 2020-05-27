@@ -55,7 +55,20 @@
         <div class="tags">文章标签占位</div>
         <div class="notice">
           <p class="title">NOTICE</p>
-          <p class="content">重构中...</p>
+          <ui class="content">
+            <li>
+              本博客正在设计第二版，未实装的功能随第二版发布
+            </li>
+            <li>
+              （不得不吐槽一下，设计才是最难的，知道自己想要什么很重要）
+            </li>
+            <li>
+              目前博客仍有许多不成熟的地方，由于是个人项目编码也比较随意
+            </li>
+            <li>
+              第二版将设计得更加合理，无论是代码结构还是页面结构
+            </li>
+          </ui>
         </div>
         <div class="update-log">
           <p class="title">UPDATE LOG</p>
