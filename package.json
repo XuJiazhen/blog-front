@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.11",
     "highlight.js": "^9.18.1",
